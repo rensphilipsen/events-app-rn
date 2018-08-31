@@ -9,9 +9,9 @@ const client = axios.create({
     responseType: 'json'
 });
 
-const middlewares = [
+const middleware = [
     axiosMiddleware(client),
     logger
 ];
 
-export default createStore(reducer, applyMiddleware(...middlewares));
+export default createStore(reducer, applyMiddleware(...middleware));
