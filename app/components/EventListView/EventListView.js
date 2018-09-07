@@ -17,6 +17,7 @@ class EventListView extends PureComponent {
         const {events} = this.props;
         return (
             <FlatList
+                style={{width: '100%'}}
                 data={events}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}

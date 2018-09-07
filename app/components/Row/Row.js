@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Image, Text, TouchableHighlight, View} from 'react-native';
+import {Image, TouchableHighlight, View} from 'react-native';
 import styles from './styles';
 
 export default class Row extends PureComponent {
@@ -11,10 +11,10 @@ export default class Row extends PureComponent {
                 <View>
                     <Image
                         ImageResizeMode={'cover'}
-                        style={{height: 200}}
-                        source={{uri: this.props.item.url}}
+                        style={{height: 200, width: '100%'}}
+                        source={{uri: this.props.item.avatar}}
                     />
-                    <Text>{this.props.item.title}</Text>
+                    <AndrehoText>{this.props.item.first_name} {this.props.item.last_name}</AndrehoText>
                 </View>
             </TouchableHighlight>
         );

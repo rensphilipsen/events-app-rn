@@ -2,6 +2,10 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
     row: {
-        marginBottom: 15
+        margin: 15,
+        backgroundColor: '#ffffff',
+        shadowColor: 'black',
+        shadowRadius: 5,
+        shadowOpacity: 0.2,
     },
 });

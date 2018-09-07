@@ -8,7 +8,7 @@ export default function reducer(state = {events: []}, action) {
         case ALL_EVENTS:
             return {...state, loading: true};
         case ALL_EVENTS_SUCCESS:
-            return {...state, loading: false, events: action.payload.data};
+            return {...state, loading: false, events: action.payload.data.data};
         case ALL_EVENTS_FAIL:
             return {
                 ...state,
@@ -26,7 +26,7 @@ export function getAllEvents() {
         type: ALL_EVENTS,
         payload: {
             request: {
-                url: '/albums/1/photos'
+                url: '/users?page=1'
             }
         }
     }
