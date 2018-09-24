@@ -1,4 +1,4 @@
-package com.andreho;
+package com.eventsapp;
 
 import android.app.Application;
 
