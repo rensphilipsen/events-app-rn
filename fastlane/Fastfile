@@ -12,6 +12,7 @@ platform :ios do
 	desc 'Fetch certificates and provisioning profiles'
 	lane :certificates do
   		match(app_identifier: 'nl.socialbrothers.eventsapp', type: 'development', readonly: true)
+		match(app_identifier: 'nl.socialbrothers.eventsapp', type: 'appstore', readonly: true)
 	end
 
 	desc 'Build the iOS application.'
