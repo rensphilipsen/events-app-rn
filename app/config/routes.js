@@ -1,8 +1,8 @@
 import EventList from '../screens/EventList';
 import EventDetail from '../screens/EventDetail';
-import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import React from 'react';
-import Chat from "../screens/Chat";
+import Chat from '../screens/Chat';
 
 export default createBottomTabNavigator(
     {

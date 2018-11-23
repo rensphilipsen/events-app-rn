@@ -1,6 +1,7 @@
-import React, {PureComponent} from 'react';
-import {Image, TouchableHighlight, View} from 'react-native';
+import React, { PureComponent } from 'react';
+import { Image, TouchableHighlight, View } from 'react-native';
 import styles from './styles';
+import ListItemText from '../ListItemText/ListItemText';
 
 export default class Row extends PureComponent {
 
@@ -14,7 +15,7 @@ export default class Row extends PureComponent {
                         style={{height: 200, width: '100%'}}
                         source={{uri: this.props.item.avatar}}
                     />
-                    <AndrehoText>{this.props.item.first_name} {this.props.item.last_name}</AndrehoText>
+                    <ListItemText>{this.props.item.first_name} {this.props.item.last_name}</ListItemText>
                 </View>
             </TouchableHighlight>
         );

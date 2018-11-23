@@ -1,9 +1,9 @@
 import React from 'react';
-import {StatusBar, Text, View} from 'react-native';
-import styles, {MAX_HEIGHT, MIN_HEIGHT} from './styles';
-import HeaderImageScrollView, {TriggeringView} from 'react-native-image-header-scroll-view';
+import { StatusBar, Text, View } from 'react-native';
+import styles, { MAX_HEIGHT, MIN_HEIGHT } from './styles';
+import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
 import * as Animatable from 'react-native-animatable';
-import PeopleAttending from "../PeopleAttending/PeopleAttending";
+import PeopleAttending from '../PeopleAttending/PeopleAttending';
 
 const FeatureImagePage = (props) => {
     return (

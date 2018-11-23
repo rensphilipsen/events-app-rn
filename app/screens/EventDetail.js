@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react';
-import FeatureImagePage from "../components/FeatureImagePage/FeatureImagePage";
-import ListItem from "../components/ListItem/ListItem";
-import ListItemText from "../components/ListItemText/ListItemText";
-import {Image, ScrollView, Text} from "react-native";
+import React, { PureComponent } from 'react';
+import FeatureImagePage from '../components/FeatureImagePage/FeatureImagePage';
+import ListItem from '../components/ListItem/ListItem';
+import ListItemText from '../components/ListItemText/ListItemText';
+import { Image, ScrollView, Text } from 'react-native';
 
 const TitleStyle = {
     fontSize: 20,
@@ -26,7 +26,7 @@ const ItemStyle = {
 const event = {
     title: 'Bedrijfsborrel',
     date: '7 december 2018',
-    image: require('../../assets/featureEvent.jpg')
+    image: require('../../assets/featureEvent.jpg'),
 };
 
 class EventDetail extends PureComponent {
