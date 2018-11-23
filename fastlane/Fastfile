@@ -1,0 +1,21 @@
+fastlane_version '2.53.1'
+
+before_all do
+  ensure_git_branch
+  ensure_git_status_clean
+  git_pull
+end
+
+
+platform :ios do
+
+	desc 'Fetch certificates and provisioning profiles'
+	lane :certificates do
+  		match(app_identifier: 'nl.socialbrothers.eventsapp', type: 'development', readonly: true)
+	end
+
+end
+
+platform :android do
+  # Android Lanes
+end
