@@ -3,9 +3,9 @@ apple_id "steven@socialbrothers.nl"  # Your Apple email address
 
 # You can uncomment the lines below and add your own
 # team selection in case you're in multiple teams
-# team_name "Felix Krause"
-# team_id "Q2CBPJ58CA"
+# team_name ""
+# team_id ""
 
 # To select a team for App Store Connect use
 itc_team_name "Social Brothers"
-# itc_team_id "18742801"
+# itc_team_id ""
