@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<GiftedChat
+  bottomOffset={0}
+  dateFormat="ll"
+  forceGetKeyboardHeight={false}
+  imageProps={Object {}}
+  inverted={true}
+  isAnimated={true}
+  isLoadingEarlier={false}
+  keyboardShouldPersistTaps="never"
+  lightboxProps={Object {}}
+  listViewProps={Object {}}
+  loadEarlier={false}
+  locale={null}
+  maxInputLength={null}
+  messageIdGenerator={[Function]}
+  messages={
+    Array [
+      Object {
+        "_id": 1,
+        "createdAt": 2018-12-14T13:10:17.436Z,
+        "text": "Hello developer",
+        "user": Object {
+          "_id": 2,
+          "avatar": "https://placeimg.com/140/140/any",
+          "name": "React Native",
+        },
+      },
+    ]
+  }
+  minInputToolbarHeight={44}
+  onInputTextChanged={null}
+  onLoadEarlier={[Function]}
+  onLongPress={null}
+  onPressActionButton={null}
+  onPressAvatar={null}
+  onSend={[Function]}
+  placeholder="Type a message..."
+  renderAccessory={null}
+  renderActions={null}
+  renderAvatarOnTop={false}
+  renderBubble={null}
+  renderChatFooter={null}
+  renderComposer={null}
+  renderCustomView={null}
+  renderDay={null}
+  renderFooter={null}
+  renderInputToolbar={null}
+  renderLoadEarlier={null}
+  renderLoading={null}
+  renderMessage={null}
+  renderMessageImage={null}
+  renderMessageText={null}
+  renderSend={null}
+  renderSystemMessage={null}
+  renderTime={null}
+  showUserAvatar={false}
+  textInputProps={Object {}}
+  timeFormat="LT"
+  user={
+    Object {
+      "_id": 1,
+    }
+  }
+/>
+`;
