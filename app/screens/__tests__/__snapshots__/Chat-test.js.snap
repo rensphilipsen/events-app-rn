@@ -20,7 +20,7 @@ exports[`renders correctly 1`] = `
     Array [
       Object {
         "_id": 1,
-        "createdAt": 2018-12-14T13:10:17.436Z,
+        "createdAt": "2018-12-12 00:00",
         "text": "Hello developer",
         "user": Object {
           "_id": 2,
