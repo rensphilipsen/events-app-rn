@@ -22,21 +22,21 @@ exports[`renders correctly 1`] = `
   >
     Bedrijfsborrel
   </Component>
-  <ListItem
+  <Button
     icon="info"
   >
     <ListItemText>
       De maandelijkse borrel staat weer op ...
     </ListItemText>
-  </ListItem>
-  <ListItem
+  </Button>
+  <Button
     icon="phone"
   >
     <ListItemText>
       +31 6 36 50 11 91
     </ListItemText>
-  </ListItem>
-  <ListItem
+  </Button>
+  <Button
     contentStyle={
       Object {
         "flex": 1,
@@ -111,6 +111,6 @@ exports[`renders correctly 1`] = `
         }
       />
     </ScrollView>
-  </ListItem>
+  </Button>
 </FeatureImagePage>
 `;

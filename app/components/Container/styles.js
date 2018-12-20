@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
+import {COLOR} from "../../styles/theme";
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: '#f0f3f8',
-    },
+	container: {
+		flex: 1,
+		alignItems: 'center',
+		backgroundColor: COLOR.WHITE_DARKER,
+	},
 });

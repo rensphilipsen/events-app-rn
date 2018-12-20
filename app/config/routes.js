@@ -1,11 +1,15 @@
 import EventList from '../screens/EventList';
 import EventDetail from '../screens/EventDetail';
-import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import {createBottomTabNavigator, createStackNavigator, createSwitchNavigator} from 'react-navigation';
 import React from 'react';
 import Chat from '../screens/Chat';
 import {Icon} from "react-native-elements";
+import Login from "../screens/Login";
+import Register from "../screens/Register";
+import Splash from "../screens/Splash";
+import Scan from "../screens/Scan";
 
-export default createBottomTabNavigator(
+const mainNavigator = createBottomTabNavigator(
 	{
 		Home: {
 			screen: createStackNavigator({
@@ -60,5 +64,24 @@ export default createBottomTabNavigator(
 		}
 	}
 );
+
+const registerNavigator = createStackNavigator(
+	{
+		Login: Login,
+		Scan: Scan,
+		Register: Register
+	},
+	{
+		headerMode: 'none'
+	}
+);
+
+export default createSwitchNavigator({
+	Splash: Splash,
+	Register: registerNavigator,
+	Main: mainNavigator
+}, {
+	initialRouteName: 'Splash'
+});
 
 

@@ -5,14 +5,14 @@ import moment from "moment";
 class Chat extends PureComponent {
 	state = {
 		messages: [],
-	}
+	};
 
 	componentWillMount() {
 		this.setState({
 			messages: [
 				{
 					_id: 1,
-					text: 'Hello developer',
+					text: 'Hello',
 					createdAt: moment('2018-12-12 00:00:00').format('Y-M-D HH:mm'),
 					user: {
 						_id: 2,

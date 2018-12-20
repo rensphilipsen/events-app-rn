@@ -10,11 +10,13 @@ export default class Row extends PureComponent {
 		return (
 			<TouchableOpacity onPress={() => navigate('EventDetail', {item: this.props.item})} style={styles.row}>
 				<View>
-					<Image
-						ImageResizeMode={'cover'}
-						style={{height: 200, width: '100%'}}
-						source={{uri: 'https://picsum.photos/200/300'}}
-					/>
+					<View style={[styles.image, styles.imageWrapper]}>
+						<Image
+							ImageResizeMode={'cover'}
+							style={styles.image}
+							source={{uri: 'https://picsum.photos/200/300'}}
+						/>
+					</View>
 					<ListItemText>{this.props.item.first_name} {this.props.item.last_name}</ListItemText>
 				</View>
 			</TouchableOpacity>
