@@ -3,14 +3,7 @@ import FeatureImagePage from '../components/FeatureImagePage/FeatureImagePage';
 import ListItem from '../components/ListItem/ListItem';
 import ListItemText from '../components/ListItemText/ListItemText';
 import {Image, ScrollView} from 'react-native';
-import {COLOR, FONT} from "../styles/theme";
-
-const TitleStyle = {
-	fontSize: 20,
-	fontFamily: FONT.BOLD,
-	color: COLOR.PRIMARY,
-	margin: 10
-};
+import {COLOR} from '../styles/theme';
 
 const ItemStyle = {
 	width: 120,

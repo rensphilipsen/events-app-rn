@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import Container from '../components/Container/Container';
-import EventListView from '../components/EventListView/EventListView';
+import EventListView from "../components/EventListView/EventListView";
 
 class EventList extends PureComponent {
 

@@ -1,6 +1,11 @@
 import {combineReducers} from 'redux';
-import events from './events'
+import {events, eventsHasErrored, eventsIsLoading} from "./events";
+import {activationLoading, activations} from "./activations";
 
 export default combineReducers({
-	events
+	events,
+	eventsIsLoading,
+	eventsHasErrored,
+	activations,
+	activationLoading
 });

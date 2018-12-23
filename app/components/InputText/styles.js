@@ -3,12 +3,12 @@ import {FONT} from "../../styles/theme";
 
 export default StyleSheet.create({
 	input: {
-		height: 40,
 		borderBottomWidth: 2,
-		width: '100%',
+		width: '85%',
 		fontFamily: FONT.REGULAR,
-		textAlign: 'center',
 		fontSize: 26,
-		margin: 20,
+		margin: 15,
+		paddingVertical: 10,
+		paddingHorizontal: 20
 	}
 });

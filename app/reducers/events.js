@@ -1,33 +1,29 @@
-export const ALL_EVENTS = 'ALL_EVENTS';
-export const ALL_EVENTS_SUCCESS = 'ALL_EVENTS_SUCCESS';
-export const ALL_EVENTS_FAIL = 'ALL_EVENTS_FAIL';
+export function eventsHasErrored(state = false, action) {
+	switch (action.type) {
+		case 'EVENTS_HAS_ERRORED':
+			return action.hasErrored;
 
-// Reducer
-export default function reducer(state = {events: []}, action) {
-    switch (action.type) {
-        case ALL_EVENTS:
-            return {...state, loading: true};
-        case ALL_EVENTS_SUCCESS:
-            return {...state, loading: false, events: action.payload.data.data};
-        case ALL_EVENTS_FAIL:
-            return {
-                ...state,
-                loading: false,
-                error: 'Error while fetching events'
-            };
-        default:
-            return state;
-    }
+		default:
+			return state;
+	}
 }
 
-// Action
-export function getAllEvents() {
-    return {
-        type: ALL_EVENTS,
-        payload: {
-            request: {
-                url: '/users?page=1'
-            }
-        }
-    }
+export function eventsIsLoading(state = false, action) {
+	switch (action.type) {
+		case 'EVENTS_IS_LOADING':
+			return action.isLoading;
+
+		default:
+			return state;
+	}
+}
+
+export function events(state = [], action) {
+	switch (action.type) {
+		case 'EVENTS_FETCH_SUCCESS':
+			return action.events;
+
+		default:
+			return state;
+	}
 }

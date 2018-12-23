@@ -9,7 +9,10 @@ const InputText = (props) => {
 			onChangeText={props.onChange}
 			selectionColor={props.color}
 			placeholder={props.placeholder}
+			editable={props.editable}
+			secureTextEntry={props.secureTextEntry}
 			style={[
+				props.style,
 				styles.input,
 				{
 					color: props.color,

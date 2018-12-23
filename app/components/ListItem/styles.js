@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLOR_WHITE} from "../../styles/theme";
+import {COLOR} from "../../styles/theme";
 
 export default StyleSheet.create({
 	item: {
@@ -7,8 +7,8 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		margin: 5,
 		padding: 15,
-		backgroundColor: COLOR_WHITE,
-		shadowColor: '#484848',
+		backgroundColor: COLOR.WHITE,
+		shadowColor: COLOR.SHADOW,
 		shadowRadius: 5,
 		shadowOpacity: 0.1,
 		borderRadius: 5,

@@ -14,7 +14,7 @@ export default class Row extends PureComponent {
 						<Image
 							ImageResizeMode={'cover'}
 							style={styles.image}
-							source={{uri: 'https://picsum.photos/200/300'}}
+							source={require('../../../assets/featureEvent.jpg')}
 						/>
 					</View>
 					<ListItemText>{this.props.item.first_name} {this.props.item.last_name}</ListItemText>

@@ -1,14 +1,20 @@
 import React, {PureComponent} from 'react';
-import {StatusBar, TextInput, View} from "react-native";
+import {StatusBar, View} from "react-native";
 import HeaderText from "../components/HeaderText/HeaderText";
 import Button from "../components/Button/Button";
-import theme, {COLOR, FONT} from "../styles/theme";
+import theme, {COLOR} from "../styles/theme";
+import connect from "react-redux/es/connect/connect";
+import InputText from "../components/InputText/InputText";
 
 class Register extends PureComponent {
 
 	constructor(props) {
 		super(props);
-		this.state = {code: ''};
+		this.state = {
+			name: '',
+			email: '',
+			password: '',
+		};
 	}
 
 	render() {
@@ -18,30 +24,46 @@ class Register extends PureComponent {
 
 				<HeaderText/>
 
-				<TextInput
-					style={{
-						height: 40,
-						borderColor: COLOR.WHITE,
-						borderBottomWidth: 1,
-						width: '80%',
-						fontFamily: FONT.REGULAR,
-						color: COLOR.WHITE,
-						textAlign: 'center',
-						fontSize: 24,
-						margin: 20,
-					}}
-					onChangeText={(code) => this.setState({code})}
-					value={this.state.code}
-					selectionColor={COLOR.WHITE}
-					placeholder={'Voer uw unieke code in...'}
+				<InputText
+					borderColor={COLOR.PRIMARY_DARKER}
+					color={COLOR.WHITE}
+					value={this.props.activations['email']}
+					editable={false}
 				/>
+
+				<InputText
+					borderColor={COLOR.PRIMARY_DARKER}
+					color={COLOR.WHITE}
+					value={this.state.name}
+					placeholder={'Vul uw naam in...'}
+					onChange={(name) => this.setState({name})}
+				/>
+
+				<InputText
+					borderColor={COLOR.PRIMARY_DARKER}
+					color={COLOR.WHITE}
+					value={this.state.password}
+					placeholder={'Vul uw wachtwoord in...'}
+					secureTextEntry={true}
+					onChange={(password) => this.setState({password})}
+				/>
+
 
 				<Button text={'Voltooien'}
 						color={COLOR.WHITE}
-						backgroundColor={COLOR.SECONDARY}/>
+						backgroundColor={COLOR.SECONDARY}
+						onPress={this.submit}/>
 			</View>
 		)
 	}
 }
 
-export default Register
+const mapStateToProps = state => {
+	return {
+		activations: state.activations
+	};
+};
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

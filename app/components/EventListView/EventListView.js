@@ -1,10 +1,11 @@
 import React, {PureComponent} from 'react';
 import {FlatList} from 'react-native';
 import Row from '../Row/Row';
-import {getAllEvents} from '../../reducers/events';
 import {connect} from 'react-redux';
+import {getAllEvents} from "../../actions/events";
 
 class EventListView extends PureComponent {
+
 	componentDidMount() {
 		this.props.getAllEvents();
 	}
@@ -24,7 +25,7 @@ class EventListView extends PureComponent {
 			/>
 		);
 	}
-
+	
 }
 
 const mapStateToProps = state => {

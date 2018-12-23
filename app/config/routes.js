@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Splash from "../screens/Splash";
 import Scan from "../screens/Scan";
+import {COLOR, FONT} from "../styles/theme";
 
 const mainNavigator = createBottomTabNavigator(
 	{
@@ -47,14 +48,14 @@ const mainNavigator = createBottomTabNavigator(
 			showIcon: true,
 			labelStyle: {
 				fontSize: 12,
-				fontFamily: 'RobotoCondensed-Bold'
+				fontFamily: FONT.BOLD
 			},
-			activeTintColor: '#5e5e82',
+			activeTintColor: COLOR.PRIMARY,
 			style: {
-				shadowColor: 'black',
+				backgroundColor: COLOR.WHITE,
+				shadowColor: COLOR.SHADOW,
 				shadowRadius: 5,
 				shadowOpacity: 0.1,
-				backgroundColor: '#ffffff',
 				borderTopWidth: 0,
 			},
 			iconStyle: {
