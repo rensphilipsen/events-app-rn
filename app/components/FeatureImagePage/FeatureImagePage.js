@@ -7,9 +7,13 @@ import PeopleAttending from '../PeopleAttending/PeopleAttending';
 import {COLOR} from "../../styles/theme";
 
 const FeatureImagePage = (props) => {
+
+
 	return (
 		<View style={styles.container}>
+
 			<StatusBar barStyle="light-content"/>
+
 			<HeaderImageScrollView
 				scrollViewBackgroundColor={COLOR.WHITE_DARKER}
 				maxHeight={MAX_HEIGHT}
@@ -31,11 +35,16 @@ const FeatureImagePage = (props) => {
 				)}
 				renderForeground={() => (
 					<View style={styles.titleContainer}>
+						<View style={[styles.badgeWrapper, {backgroundColor: props.type === 'event' ? COLOR.SECONDARY : COLOR.BLUE}]}>
+							<Text style={styles.badgeText}>
+								{props.type}
+							</Text>
+						</View>
 						<Text style={styles.imageTitle}>
 							{props.title}
 						</Text>
 						<Text style={styles.imageSubTitle}>
-							{props.date}
+							{props.date ? props.date : ''}
 						</Text>
 					</View>
 				)}>
@@ -44,7 +53,9 @@ const FeatureImagePage = (props) => {
 					onDisplay={() => this.navTitleView.fadeOut(100)}>
 					<PeopleAttending/>
 				</TriggeringView>
+
 				{props.children}
+
 			</HeaderImageScrollView>
 		</View>
 	);

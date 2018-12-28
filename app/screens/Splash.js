@@ -14,8 +14,8 @@ class Splash extends PureComponent {
 	}
 
 	bootstrapAsync = async () => {
-		const deviceId = await AsyncStorage.getItem('deviceId');
-		this.props.navigation.navigate(deviceId ? 'Main' : 'Register');
+		const token = await AsyncStorage.getItem('access_token');
+		this.props.navigation.navigate(token ? 'Main' : 'Register');
 	};
 
 	render() {

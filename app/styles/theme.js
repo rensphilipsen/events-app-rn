@@ -9,6 +9,7 @@ export const COLOR = {
 	WHITE_DARKER: '#f0f3f8',
 	SHADOW: '#484848',
 	BLACK: '#000000',
+	BLUE: '#3498db'
 };
 
 // FONTS
@@ -23,5 +24,15 @@ export default StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: COLOR.PRIMARY
+	},
+	eventDetailImage: {
+		width: 120,
+		height: 120,
+		margin: 5,
+		shadowColor: COLOR.SHADOW,
+		shadowRadius: 5,
+		shadowOpacity: 0.1,
+		borderRadius: 5,
+		shadowOffset: {height: 5},
 	}
 });

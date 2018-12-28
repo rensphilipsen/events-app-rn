@@ -2,13 +2,8 @@ import React, {PureComponent} from 'react';
 import {FlatList} from 'react-native';
 import Row from '../Row/Row';
 import {connect} from 'react-redux';
-import {getAllEvents} from "../../actions/events";
 
 class EventListView extends PureComponent {
-
-	componentDidMount() {
-		this.props.getAllEvents();
-	}
 
 	_keyExtractor = (item) => item.id.toString();
 
@@ -25,16 +20,15 @@ class EventListView extends PureComponent {
 			/>
 		);
 	}
-	
+
 }
 
 const mapStateToProps = state => {
-	const storedEvents = state.events.events.map(event => ({key: event.id, ...event}));
-	return {events: storedEvents};
+	return {
+		events: state.events[0].events.data
+	};
 };
 
-const mapDispatchToProps = {
-	getAllEvents
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventListView);

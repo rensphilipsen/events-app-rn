@@ -65,4 +65,16 @@ export default StyleSheet.create({
 		height: 600,
 		backgroundColor: COLOR.BLACK
 	},
+	badgeWrapper: {
+		paddingHorizontal: 15,
+		paddingVertical: 10,
+		borderRadius: 25,
+		marginBottom: 5,
+	},
+	badgeText: {
+		fontFamily: FONT.BOLD,
+		color: COLOR.WHITE,
+		fontSize: 12,
+		textTransform: 'uppercase'
+	}
 });

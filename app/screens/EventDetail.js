@@ -1,62 +1,133 @@
 import React, {PureComponent} from 'react';
-import FeatureImagePage from '../components/FeatureImagePage/FeatureImagePage';
-import ListItem from '../components/ListItem/ListItem';
-import ListItemText from '../components/ListItemText/ListItemText';
-import {Image, ScrollView} from 'react-native';
-import {COLOR} from '../styles/theme';
-
-const ItemStyle = {
-	width: 120,
-	height: 120,
-	margin: 5,
-	shadowColor: COLOR.SHADOW,
-	shadowRadius: 5,
-	shadowOpacity: 0.1,
-	borderRadius: 5,
-	shadowOffset: {height: 5},
-};
-
-// TODO: Replace this with actual dynamic data
-const event = {
-	title: 'Bedrijfsborrel',
-	date: '7 december 2018',
-	image: require('../../assets/featureEvent.jpg'),
-	description: 'De maandelijkse borrel staat weer op ...',
-	contact_phone: '+31 6 36 50 11 91'
-};
+import {getAllEvents} from "../actions/events";
+import FeatureImagePage from "../components/FeatureImagePage/FeatureImagePage";
+import {Image, ScrollView, View} from "react-native";
+import Config from "react-native-config";
+import ListItem from "../components/ListItem/ListItem";
+import theme from "../styles/theme";
+import connect from "react-redux/es/connect/connect";
+import ListItemText from "../components/ListItemText/ListItemText";
+import moment from "moment";
 
 class EventDetail extends PureComponent {
+
+	event;
+	navigate;
+
+	defaultFields = [
+		{icon: 'phone', value: 'contact_phone', onPress: () => null},
+		{icon: 'info', value: 'description', onPress: () => null},
+	];
 
 	constructor() {
 		super();
 		this.state = {showNavTitle: false};
 	}
 
-	render() {
-		return (
-			<FeatureImagePage
-				image={event.image}
-				title={event.title}
-				date={event.date}>
+	componentDidMount() {
+		this.props.getAllEvents();
+	}
 
-				<ListItem icon={'info'}>
-					<ListItemText>{event.description}</ListItemText>
-				</ListItem>
+	getUrl(url) {
+		return Config.API_URL + '/' + url;
+	}
 
-				<ListItem icon={'phone'}>
-					<ListItemText>{event.contact_phone}</ListItemText>
-				</ListItem>
+	getFeatureImage() {
+		return this.event['medias'].data.length > 1 ?
+			{uri: this.getUrl(this.event['medias'].data[0].path)} :
+			require('../../assets/placeholder.png')
+	}
 
+	renderGallery() {
+		const medias = this.event['medias'].data;
+
+		if (medias.length > 1)
+			return (
 				<ListItem contentStyle={{flex: 1, flexDirection: 'row'}}>
 					<ScrollView horizontal={true}>
-						<Image style={ItemStyle} source={require('../../assets/event1.jpg')}/>
-						<Image style={ItemStyle} source={require('../../assets/event2.jpg')}/>
-						<Image style={ItemStyle} source={require('../../assets/event3.jpg')}/>
+						{medias.forEach((item) => {
+							return (this.renderGalleryItem(item));
+						})}
 					</ScrollView>
-				</ListItem>
-			</FeatureImagePage>
-		);
+				</ListItem>);
+	}
+
+	renderGalleryItem(item) {
+		return <Image style={theme.eventDetailImage} source={{uri: this.getUrl(item.path)}}/>
+	}
+
+	renderEvents() {
+		const events = this.event.events.data;
+
+		if (events.length > 1)
+			return (
+				<ListItem icon={'star'} onPress={() => this.navigate('EventList')} key={'events'}>
+					<ListItemText>{events.length} evenementen op programma</ListItemText>
+				</ListItem>);
+	}
+
+	renderDate() {
+		// Parse date
+		const start = this.event.start_time ? moment(this.event.start_time) : null;
+		const end = this.event.end_time ? moment(this.event.end_time) : null;
+
+		// Condition checking
+		if (start && end) return start.format('dd D MMM') + ' - ' + end.format('dd D MMM YYYY');
+		else if (start) return start.format('dd D MMM YYYY');
+		else return '';
+	}
+
+	renderAdditionalFields() {
+		const fieldsToRender = [];
+		const metas = this.event['metas'].data;
+
+		metas.forEach((meta) => {
+			// Check if meta is in default fields array and value is not empty..
+			const field = this.defaultFields.find(field => field.value === meta.key && meta.value !== '');
+
+			if (field)
+				fieldsToRender.push(
+					<ListItem icon={field.icon} key={meta.key}><ListItemText>{meta.value}</ListItemText></ListItem>
+				);
+		});
+
+		return fieldsToRender;
+	}
+
+	render() {
+		const {navigation} = this.props;
+		this.navigate = navigation.navigate;
+
+		this.event = navigation.state.params ? navigation.state.params['event'] : this.props.event;
+
+		if (this.event)
+			return (
+				<FeatureImagePage
+					image={this.getFeatureImage()}
+					title={this.event.title}
+					type={this.event.type}
+					date={this.renderDate()}>
+
+					{this.renderEvents()}
+
+					{this.renderAdditionalFields()}
+
+					{this.renderGallery()}
+
+				</FeatureImagePage>);
+		else
+			return <View/>
 	}
 }
 
-export default (EventDetail);
+const mapStateToProps = state => {
+	return {
+		event: state.events[0]
+	};
+};
+
+const mapDispatchToProps = {
+	getAllEvents
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventDetail)

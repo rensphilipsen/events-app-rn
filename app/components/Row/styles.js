@@ -18,5 +18,8 @@ export default StyleSheet.create({
 		overflow: 'hidden',
 		height: 200,
 		width: '100%'
+	},
+	smallText: {
+		fontSize: 10
 	}
 });

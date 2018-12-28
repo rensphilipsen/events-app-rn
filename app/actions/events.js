@@ -14,10 +14,10 @@ export function eventsIsLoading(bool) {
 	};
 }
 
-export function eventsFetchSuccess(events) {
+export function eventsFetchSuccess(event) {
 	return {
 		type: 'EVENTS_FETCH_SUCCESS',
-		events
+		event
 	};
 }
 
@@ -27,7 +27,7 @@ export function getAllEvents() {
 
 		return client.get('/events')
 			.then((data) => dispatch(eventsFetchSuccess(data.data.data)))
-			.catch((err) => dispatch(eventsHasErrored(err)))
+			.catch(() => dispatch(eventsHasErrored(true)))
 			.then(() => dispatch(eventsIsLoading(false)));
 	}
 }

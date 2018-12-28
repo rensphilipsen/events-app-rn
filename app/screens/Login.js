@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {StatusBar, View} from "react-native";
+import {AsyncStorage, StatusBar, View} from "react-native";
 import Button from "../components/Button/Button";
 import HeaderText from "../components/HeaderText/HeaderText";
 import theme, {COLOR} from "../styles/theme";
@@ -14,16 +14,28 @@ class Login extends PureComponent {
 		super(props);
 		this.state = {
 			code: '',
+			email: '',
+			password: '',
+			firstTime: false
 		};
 	}
 
-	componentDidUpdate(prevProps) {
+	componentDidMount() {
+		AsyncStorage.getItem('firstTime').then((firstTime) => {
+			if (!firstTime)
+				firstTime = true;
 
+			this.setState({firstTime: firstTime});
+		})
+	}
+
+	componentDidUpdate(prevProps) {
 		if (!this.props.activationLoading) {
 
 			if (this.props.activations['code'])
 				this.props.navigation.navigate('Register');
 
+			// TODO: Do error handling
 			if (this.props.activations === false)
 				console.log('Do error handling')
 

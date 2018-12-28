@@ -14,8 +14,8 @@ const mainNavigator = createBottomTabNavigator(
 	{
 		Home: {
 			screen: createStackNavigator({
-				EventList: {screen: EventList},
 				EventDetail: {screen: EventDetail},
+				EventList: {screen: EventList},
 			}, {
 				headerMode: 'none'
 			}),

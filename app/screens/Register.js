@@ -5,22 +5,48 @@ import Button from "../components/Button/Button";
 import theme, {COLOR} from "../styles/theme";
 import connect from "react-redux/es/connect/connect";
 import InputText from "../components/InputText/InputText";
+import {createUser} from "../actions/users";
+import Loader from "../components/Loader/Loader";
 
 class Register extends PureComponent {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: '',
 			email: '',
+			name: '',
 			password: '',
 		};
 	}
+
+	componentDidUpdate(prevProps) {
+
+		if (!this.props.userLoading) {
+
+			if (this.props.users['email'])
+				this.props.navigation.navigate('Home');
+
+			// TODO: Do error handling
+			if (this.props.users === false)
+				console.log('Do error handling')
+
+		}
+	}
+
+	componentDidMount() {
+		this.setState({email: this.props.activations['email']});
+	}
+
+	submit = () => {
+		this.props.createUser(this.state);
+	};
 
 	render() {
 		return (
 			<View style={theme.introWrapper}>
 				<StatusBar barStyle="light-content"/>
+
+				<Loader visible={this.props.userLoading}/>
 
 				<HeaderText/>
 
@@ -60,10 +86,14 @@ class Register extends PureComponent {
 
 const mapStateToProps = state => {
 	return {
-		activations: state.activations
+		activations: state.activations,
+		userLoading: state.userLoading,
+		users: state.users
 	};
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+	createUser,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
