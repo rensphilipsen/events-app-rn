@@ -14,6 +14,8 @@ import ShallowRenderer from 'react-test-renderer/shallow';
 
 jest.setTimeout(15000);
 
+jest.mock('react-native-qrcode-scanner', () => jest.fn());
+
 it('renders correctly', () => {
 	const renderer = new ShallowRenderer();
 	renderer.render(<EventList/>);

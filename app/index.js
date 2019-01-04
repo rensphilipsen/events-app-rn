@@ -14,6 +14,10 @@ export const client = axios.create({
 	responseType: 'json'
 });
 
+export function getUrl(url) {
+	return Config.API_URL + '/' + url;
+}
+
 client.interceptors.request.use(async (config) => {
 	config.headers.authorization = 'Bearer ' + await AsyncStorage.getItem('access_token');
 	return config;

@@ -21,7 +21,7 @@ exports[`renders correctly 1`] = `
       Object {
         "_id": 1,
         "createdAt": "2018-12-12 00:00",
-        "text": "Hello developer",
+        "text": "Hello",
         "user": Object {
           "_id": 2,
           "avatar": "https://placeimg.com/140/140/any",

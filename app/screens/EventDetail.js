@@ -2,12 +2,12 @@ import React, {PureComponent} from 'react';
 import {getAllEvents} from "../actions/events";
 import FeatureImagePage from "../components/FeatureImagePage/FeatureImagePage";
 import {Image, ScrollView, View} from "react-native";
-import Config from "react-native-config";
 import ListItem from "../components/ListItem/ListItem";
 import theme from "../styles/theme";
 import connect from "react-redux/es/connect/connect";
 import ListItemText from "../components/ListItemText/ListItemText";
 import moment from "moment";
+import {getUrl} from "../index";
 
 class EventDetail extends PureComponent {
 
@@ -28,38 +28,39 @@ class EventDetail extends PureComponent {
 		this.props.getAllEvents();
 	}
 
-	getUrl(url) {
-		return Config.API_URL + '/' + url;
-	}
-
 	getFeatureImage() {
-		return this.event['medias'].data.length > 1 ?
-			{uri: this.getUrl(this.event['medias'].data[0].path)} :
+		const medias = this.event['medias'].data;
+
+		return medias.length >= 1 ?
+			{uri: getUrl(medias[0].path)} :
 			require('../../assets/placeholder.png')
 	}
 
 	renderGallery() {
+		const items = [];
 		const medias = this.event['medias'].data;
 
-		if (medias.length > 1)
+		medias.forEach((item) => {
+			items.push(this.renderGalleryItem(item));
+		});
+
+		if (medias.length >= 1)
 			return (
 				<ListItem contentStyle={{flex: 1, flexDirection: 'row'}}>
 					<ScrollView horizontal={true}>
-						{medias.forEach((item) => {
-							return (this.renderGalleryItem(item));
-						})}
+						{items}
 					</ScrollView>
 				</ListItem>);
 	}
 
 	renderGalleryItem(item) {
-		return <Image style={theme.eventDetailImage} source={{uri: this.getUrl(item.path)}}/>
+		return <Image style={theme.eventDetailImage} source={{uri: getUrl(item.path)}} key={item.id}/>
 	}
 
 	renderEvents() {
 		const events = this.event.events.data;
 
-		if (events.length > 1)
+		if (events.length >= 1)
 			return (
 				<ListItem icon={'star'} onPress={() => this.navigate('EventList')} key={'events'}>
 					<ListItemText>{events.length} evenementen op programma</ListItemText>
