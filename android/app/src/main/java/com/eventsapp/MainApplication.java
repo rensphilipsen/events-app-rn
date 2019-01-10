@@ -3,6 +3,7 @@ package com.eventsapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import org.reactnative.camera.RNCameraPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -12,6 +13,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +30,13 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFirebasePackage(),
             new ReactNativeOneSignalPackage(),
             new RNCameraPackage(),
             new SplashScreenReactPackage(),
             new VectorIconsPackage(),
-            new ReactNativeConfigPackage()
+            new ReactNativeConfigPackage(),
+            new RNFirebaseCrashlyticsPackage()
       );
     }
 

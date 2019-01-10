@@ -43,7 +43,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) heeft toegang tot uw camera nodig.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>RobotoCondensed-Bold.ttf</string>
