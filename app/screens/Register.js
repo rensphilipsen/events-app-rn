@@ -23,6 +23,8 @@ class Register extends PureComponent {
 
 		if (!this.props.userLoading) {
 
+			alert(this.props.users['email']);
+
 			if (this.props.users['email'])
 				this.props.navigation.navigate('Home');
 

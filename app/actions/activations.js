@@ -21,7 +21,10 @@ export function checkActivation(code) {
 		return client.post('/activations/validate', {
 			code: code
 		}).then((data) => dispatch(activationValidated(data.data)))
-			.catch(() => dispatch(activationValidated(false)))
+			.catch((e) => {
+				console.log(e);
+				dispatch(activationValidated(false))
+			})
 			.done(() => dispatch(activationLoading(false)));
 	}
 }

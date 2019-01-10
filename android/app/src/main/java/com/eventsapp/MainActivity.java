@@ -1,4 +1,4 @@
-package com.eventsapp;
+package nl.socialbrothers.eventsapp;
 
 import com.facebook.react.ReactActivity;
 
