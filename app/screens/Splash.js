@@ -1,11 +1,14 @@
 import React, {PureComponent} from 'react';
 import {ActivityIndicator, AsyncStorage, StatusBar, View} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import OneSignal from "react-native-onesignal";
+import Config from 'react-native-config';
 
 class Splash extends PureComponent {
 
 	constructor(props) {
 		super(props);
+		OneSignal.init(Config.ONESIGNAL_APP_ID);
 		this.bootstrapAsync();
 	}
 

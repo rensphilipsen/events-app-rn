@@ -27,7 +27,7 @@ class Chat extends PureComponent {
 	onSend(messages = []) {
 		this.setState(previousState => ({
 			messages: GiftedChat.append(previousState.messages, messages),
-		}))
+		}));
 	}
 
 	render() {

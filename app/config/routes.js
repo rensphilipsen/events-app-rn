@@ -13,7 +13,7 @@ import {COLOR, FONT} from "../styles/theme";
 const mainNavigator = createBottomTabNavigator(
 	{
 		Home: {
-			screen: () => createStackNavigator({
+			screen: createStackNavigator({
 				EventDetail: {screen: EventDetail},
 				EventList: {screen: EventList},
 			}, {
