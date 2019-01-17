@@ -17,13 +17,14 @@ const mainNavigator = createBottomTabNavigator(
 				EventDetail: {screen: EventDetail},
 				EventList: {screen: EventList},
 			}, {
-				headerMode: 'none'
+				headerMode: 'none',
 			}),
 			navigationOptions: {
 				tabBarIcon: ({tintColor}) => (
 					<Icon name="home" color={tintColor}/>
-				)
-			}
+				),
+				headerTransparent: true
+			},
 		},
 		Timeline: {
 			screen: Chat,
@@ -73,7 +74,15 @@ const registerNavigator = createStackNavigator(
 		Register: Register
 	},
 	{
-		headerMode: 'none'
+		navigationOptions: {
+			headerTransparent: true,
+			headerTintColor: 'white',
+			headerBackTitle: 'TERUG',
+			headerBackTitleStyle: {
+				fontFamily: FONT.BOLD,
+				fontSize: 18
+			}
+		}
 	}
 );
 

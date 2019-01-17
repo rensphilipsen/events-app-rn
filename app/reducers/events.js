@@ -27,3 +27,13 @@ export function events(state = [], action) {
 			return state;
 	}
 }
+
+export function eventRoomId(state = [], action) {
+	switch (action.type) {
+		case 'EVENT_ROOM_ID_SUCCESS':
+			return action.event;
+
+		default:
+			return state;
+	}
+}

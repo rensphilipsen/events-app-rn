@@ -21,6 +21,13 @@ export function eventsFetchSuccess(event) {
 	};
 }
 
+export function eventRoomIdSuccess(event) {
+	return {
+		type: 'EVENT_ROOM_ID_SUCCESS',
+		event
+	};
+}
+
 export function getAllEvents() {
 	return (dispatch) => {
 		dispatch(eventsIsLoading(true));
@@ -29,5 +36,11 @@ export function getAllEvents() {
 			.then((data) => dispatch(eventsFetchSuccess(data.data.data)))
 			.catch(() => dispatch(eventsHasErrored(true)))
 			.then(() => dispatch(eventsIsLoading(false)));
+	}
+}
+
+export function setEventRoomId(roomId) {
+	return (dispatch) => {
+		return dispatch(eventRoomIdSuccess(roomId));
 	}
 }

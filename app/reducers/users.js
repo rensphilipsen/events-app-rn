@@ -1,6 +1,6 @@
 export function users(state = {}, action) {
 	switch (action.type) {
-		case 'USERS_CREATED':
+		case 'USERS_LOADED':
 			return action.user;
 
 		default:

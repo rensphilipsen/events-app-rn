@@ -1,13 +1,14 @@
 import React, {PureComponent} from 'react';
-import {getAllEvents} from "../actions/events";
+import {getAllEvents, setEventRoomId} from "../actions/events";
 import FeatureImagePage from "../components/FeatureImagePage/FeatureImagePage";
-import {Image, ScrollView, View} from "react-native";
+import {ScrollView, Text, View} from "react-native";
 import ListItem from "../components/ListItem/ListItem";
 import theme from "../styles/theme";
 import connect from "react-redux/es/connect/connect";
 import ListItemText from "../components/ListItemText/ListItemText";
 import moment from "moment";
 import {getUrl} from "../index";
+import FastImage from "react-native-fast-image";
 
 class EventDetail extends PureComponent {
 
@@ -28,6 +29,18 @@ class EventDetail extends PureComponent {
 		this.props.getAllEvents();
 	}
 
+	componentDidUpdate(prevProps) {
+		if (!this.props.eventsLoading) {
+			this.setRoomId();
+		}
+	}
+
+	setRoomId() {
+		const metas = this.event['metas'].data;
+		const chatkitRoomId = metas.find((meta) => meta.key === 'chatkit_room_id').value;
+		this.props.setEventRoomId(chatkitRoomId);
+	}
+
 	getFeatureImage() {
 		const medias = this.event['medias'].data;
 
@@ -46,7 +59,7 @@ class EventDetail extends PureComponent {
 
 		if (medias.length >= 1)
 			return (
-				<ListItem contentStyle={{flex: 1, flexDirection: 'row'}}>
+				<ListItem contentStyle={{flex: 1, flexDirection: 'row'}} disabled={true}>
 					<ScrollView horizontal={true}>
 						{items}
 					</ScrollView>
@@ -54,17 +67,24 @@ class EventDetail extends PureComponent {
 	}
 
 	renderGalleryItem(item) {
-		return <Image style={theme.eventDetailImage} source={{uri: getUrl(item.path)}} key={item.id}/>
+		return <FastImage style={theme.eventDetailImage} source={{
+			uri: getUrl(item.path),
+			priority: FastImage.priority.normal
+		}} key={item.id}/>
 	}
 
 	renderEvents() {
 		const events = this.event.events.data;
 
-		if (events.length >= 1)
+		if (events.length >= 1) {
+			const eventNames = events.map(event => event.title);
+
 			return (
 				<ListItem icon={'star'} onPress={() => this.navigate('EventList')} key={'events'}>
-					<ListItemText>{events.length} evenementen op programma</ListItemText>
+					<ListItemText>Binnenkort <Text style={{fontWeight: 'bold'}}>{eventNames.join(', ')}</Text> op
+						programma</ListItemText>
 				</ListItem>);
+		}
 	}
 
 	renderDate() {
@@ -123,12 +143,14 @@ class EventDetail extends PureComponent {
 
 const mapStateToProps = state => {
 	return {
-		event: state.events[0]
+		event: state.events[0],
+		eventsLoading: state.eventsIsLoading
 	};
 };
 
 const mapDispatchToProps = {
-	getAllEvents
+	getAllEvents,
+	setEventRoomId
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventDetail)

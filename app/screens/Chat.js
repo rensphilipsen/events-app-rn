@@ -1,34 +1,86 @@
 import React, {PureComponent} from 'react';
 import {GiftedChat} from 'react-native-gifted-chat'
-import moment from "moment";
+import Config from 'react-native-config';
+import {ChatManager, TokenProvider} from '@pusher/chatkit-client';
+import connect from "react-redux/es/connect/connect";
 
 class Chat extends PureComponent {
+
 	state = {
 		messages: [],
 	};
 
-	componentWillMount() {
-		this.setState({
-			messages: [
-				{
-					_id: 1,
-					text: 'Hello',
-					createdAt: moment('2018-12-12 00:00:00').format('Y-M-D HH:mm'),
-					user: {
-						_id: 2,
-						name: 'React Native',
-						avatar: 'https://placeimg.com/140/140/any',
-					},
-				},
-			],
-		})
+	componentDidMount() {
+		this.initChat();
 	}
 
-	onSend(messages = []) {
-		this.setState(previousState => ({
-			messages: GiftedChat.append(previousState.messages, messages),
-		}));
+	componentDidUpdate(prevProps) {
+		if (prevProps.eventRoomId !== this.props.eventRoomId)
+			this.initChat();
 	}
+
+	initChat() {
+		this.setState({messages: []});
+
+		const tokenProvider = new TokenProvider({
+			url: Config.CHATKIT_TOKEN_PROVIDER_ENDPOINT,
+		});
+
+		const chatManager = new ChatManager({
+			instanceLocator: Config.CHATKIT_INSTANCE_LOCATOR,
+			userId: this.props.user.email,
+			tokenProvider: tokenProvider,
+		});
+
+		chatManager
+			.connect()
+			.then(currentUser => {
+				this.currentUser = currentUser;
+				this.currentUser.subscribeToRoom({
+					roomId: this.props.eventRoomId,
+					hooks: {
+						onMessage: this.onReceive,
+					},
+				});
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	}
+
+	onReceive = data => {
+		const {id, senderId, text, createdAt} = data;
+		const incomingMessage = {
+			_id: id,
+			text: text,
+			createdAt: new Date(createdAt),
+			user: {
+				_id: senderId,
+				name: senderId,
+				avatar:
+					'https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png',
+			},
+		};
+
+		this.setState(previousState => ({
+			messages: GiftedChat.append(previousState.messages, incomingMessage),
+		}));
+	};
+
+	onSend = (messages = []) => {
+		messages.forEach(message => {
+			this.currentUser
+				.sendMessage({
+					text: message.text,
+					roomId: this.props.eventRoomId,
+				})
+				.then(() => {
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		});
+	};
 
 	render() {
 		return (
@@ -36,11 +88,20 @@ class Chat extends PureComponent {
 				messages={this.state.messages}
 				onSend={messages => this.onSend(messages)}
 				user={{
-					_id: 1,
+					_id: this.props.user.email,
 				}}
 			/>
 		)
 	}
 }
 
-export default Chat
+const mapStateToProps = state => {
+	return {
+		user: state.users,
+		eventRoomId: state.eventRoomId,
+	}
+};
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat)

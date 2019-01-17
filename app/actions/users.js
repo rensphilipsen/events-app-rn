@@ -2,9 +2,9 @@ import {client} from "../index";
 import {getAllEvents} from "./events";
 import {AsyncStorage} from "react-native";
 
-export function userCreated(user) {
+export function userLoaded(user) {
 	return {
-		type: 'USERS_CREATED',
+		type: 'USERS_LOADED',
 		user
 	};
 }
@@ -23,7 +23,7 @@ export function createUser(user) {
 		return client.post('/users', {
 			...user
 		}).then((data) => {
-			dispatch(userCreated(data.data.data));
+			dispatch(userLoaded(data.data.data));
 
 			client.post('/authentication/login', {
 				email: user.email,
@@ -36,11 +36,25 @@ export function createUser(user) {
 				})
 			}, () => {
 				dispatch(userLoading(false));
-				return dispatch(userCreated(false))
+				return dispatch(userLoaded(false))
 			});
 		}).catch(() => {
 			dispatch(userLoading(false));
-			return dispatch(userCreated(false))
+			return dispatch(userLoaded(false))
 		})
+	}
+}
+
+export function loadUser() {
+	return dispatch => {
+		dispatch(userLoading(true));
+
+		client.get('/authentication/me').then((data) => {
+			dispatch(userLoading(false));
+			dispatch(userLoaded(data.data));
+		}).catch(() => {
+			dispatch(userLoading(false));
+			return dispatch(userLoaded(false))
+		});
 	}
 }
