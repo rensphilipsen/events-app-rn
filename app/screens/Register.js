@@ -10,6 +10,11 @@ import Loader from "../components/Loader/Loader";
 
 class Register extends PureComponent {
 
+	/**
+	 * Constructor
+	 *
+	 * @param props
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,6 +24,18 @@ class Register extends PureComponent {
 		};
 	}
 
+	/**
+	 * When component is  mounted
+	 */
+	componentDidMount() {
+		this.setState({email: this.props.activations['email']});
+	}
+
+	/**
+	 * When component has updated
+	 *
+	 * @param prevProps
+	 */
 	componentDidUpdate(prevProps) {
 
 		if (!this.props.userLoading) {
@@ -33,14 +50,18 @@ class Register extends PureComponent {
 		}
 	}
 
-	componentDidMount() {
-		this.setState({email: this.props.activations['email']});
-	}
-
+	/**
+	 * Submit the form
+	 */
 	submit = () => {
 		this.props.createUser(this.state);
 	};
 
+	/**
+	 * The render method.
+	 *
+	 * @returns {*}
+	 */
 	render() {
 		return (
 			<View style={theme.introWrapper}>
@@ -84,6 +105,11 @@ class Register extends PureComponent {
 	}
 }
 
+/**
+ * All the VALUES from the Redux store that should be available within the props of this component
+ * @param state
+ * @returns {{userLoading, activations: *, users: *}}
+ */
 const mapStateToProps = state => {
 	return {
 		activations: state.activations,
@@ -92,6 +118,11 @@ const mapStateToProps = state => {
 	};
 };
 
+/**
+ * All the METHODS from the Redux store that should be available within the props of this component
+ *
+ * @type {{createUser: createUser}}
+ */
 const mapDispatchToProps = {
 	createUser,
 };

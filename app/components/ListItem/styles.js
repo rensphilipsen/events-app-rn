@@ -13,5 +13,8 @@ export default StyleSheet.create({
 		shadowOpacity: 0.1,
 		borderRadius: 5,
 		shadowOffset: {height: 5}
+	},
+	icon: {
+		marginTop: 15
 	}
 });

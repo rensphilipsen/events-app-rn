@@ -9,16 +9,39 @@ import Register from "../screens/Register";
 import Splash from "../screens/Splash";
 import Scan from "../screens/Scan";
 import {COLOR, FONT} from "../styles/theme";
+import ListItemDetail from "../screens/ListItemDetail";
+import Timeline from "../screens/Timeline";
 
 const mainNavigator = createBottomTabNavigator(
 	{
 		Home: {
 			screen: createStackNavigator({
-				EventDetail: {screen: EventDetail},
-				EventList: {screen: EventList},
-			}, {
-				headerMode: 'none',
-			}),
+					EventDetail: {screen: EventDetail},
+					EventList: {screen: EventList},
+					ListItemDetail: {screen: ListItemDetail}
+				},
+				{
+					navigationOptions: {
+						headerTintColor: COLOR.PRIMARY,
+						headerBackTitle: 'TERUG',
+						headerBackTitleStyle: {
+							fontFamily: FONT.BOLD,
+							fontSize: 14
+						},
+						headerStyle: {
+							borderBottomWidth: 0,
+							elevation: 0,
+							shadowColor: 'transparent',
+							backgroundColor: COLOR.WHITE,
+							shadowRadius: 5,
+							shadowOpacity: 0.1,
+							borderTopWidth: 0,
+							shadowOffset: {
+								height: 0,
+							},
+						},
+					}
+				}),
 			navigationOptions: {
 				tabBarIcon: ({tintColor}) => (
 					<Icon name="home" color={tintColor}/>
@@ -27,7 +50,7 @@ const mainNavigator = createBottomTabNavigator(
 			},
 		},
 		Timeline: {
-			screen: Chat,
+			screen: Timeline,
 			navigationOptions: {
 				tabBarIcon: ({tintColor}) => (
 					<Icon name="timeline" color={tintColor}/>
@@ -76,7 +99,7 @@ const registerNavigator = createStackNavigator(
 	{
 		navigationOptions: {
 			headerTransparent: true,
-			headerTintColor: 'white',
+			headerTintColor: COLOR.WHITE,
 			headerBackTitle: 'TERUG',
 			headerBackTitleStyle: {
 				fontFamily: FONT.BOLD,

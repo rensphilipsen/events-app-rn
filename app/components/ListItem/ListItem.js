@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import styles from './styles';
-import {Icon} from "react-native-elements";
+import {Icon} from 'react-native-elements'
 import {COLOR} from "../../styles/theme";
 
 const ListItem = (props) => {
@@ -9,7 +9,7 @@ const ListItem = (props) => {
 		<TouchableOpacity style={styles.item}
 						  onPress={props.onPress}
 						  disabled={!!props.disabled}>
-			<Icon name={props.icon} color={COLOR.PRIMARY}/>
+			<Icon size={30} name={props.icon} style={styles.icon} color={COLOR.PRIMARY}/>
 			<View style={props.contentStyle}>
 				{props.children}
 			</View>

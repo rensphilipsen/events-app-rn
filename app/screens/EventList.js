@@ -4,6 +4,11 @@ import EventListView from "../components/EventListView/EventListView";
 
 class EventList extends PureComponent {
 
+	/**
+	 * The render method.
+	 *
+	 * @returns {*}
+	 */
 	render() {
 		return (
 			<Container>

@@ -7,6 +7,7 @@ export const COLOR = {
 	SECONDARY: '#1dd1a1',
 	WHITE: '#ffffff',
 	WHITE_DARKER: '#f0f3f8',
+	WHITE_DARKEST: '#b8bbbf',
 	SHADOW: '#484848',
 	BLACK: '#000000',
 	BLUE: '#3498db'
@@ -34,5 +35,25 @@ export default StyleSheet.create({
 		shadowOpacity: 0.1,
 		borderRadius: 5,
 		shadowOffset: {height: 5},
+	},
+	galleryCloseButtonWrapper: {
+		alignSelf: 'flex-end',
+		padding: 20,
+		top: 30,
+		right: 8,
+		zIndex: 9999,
+		position: 'absolute'
+	},
+	tweetDate: {
+		textAlign: 'right',
+		color: COLOR.WHITE_DARKEST
+	},
+	tweetUserImage: {
+		width: 50,
+		height: 50,
+		borderRadius: 50 / 2,
+	},
+	tweetUserName: {
+		color: COLOR.WHITE_DARKEST
 	}
 });

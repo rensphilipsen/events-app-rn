@@ -10,6 +10,11 @@ import Loader from "../components/Loader/Loader";
 
 class Login extends PureComponent {
 
+	/**
+	 * Constructor
+	 *
+	 * @param props
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -20,6 +25,9 @@ class Login extends PureComponent {
 		};
 	}
 
+	/**
+	 * When component is  mounted
+	 */
 	componentDidMount() {
 		AsyncStorage.getItem('firstTime').then((firstTime) => {
 			if (!firstTime)
@@ -29,6 +37,11 @@ class Login extends PureComponent {
 		})
 	}
 
+	/**
+	 * When component has updated
+	 *
+	 * @param prevProps
+	 */
 	componentDidUpdate(prevProps) {
 		if (!this.props.activationLoading) {
 
@@ -42,10 +55,18 @@ class Login extends PureComponent {
 		}
 	}
 
+	/**
+	 * Submit the form
+	 */
 	submit = () => {
 		this.props.checkActivation(this.state.code);
 	};
 
+	/**
+	 * The render method.
+	 *
+	 * @returns {*}
+	 */
 	render() {
 		const {navigate} = this.props.navigation;
 
@@ -81,6 +102,12 @@ class Login extends PureComponent {
 	}
 }
 
+/**
+ * All the VALUES from the Redux store that should be available within the props of this component
+ *
+ * @param state
+ * @returns {{activationLoading, activations: *}}
+ */
 const mapStateToProps = state => {
 	return {
 		activationLoading: state.activationLoading,
@@ -88,6 +115,11 @@ const mapStateToProps = state => {
 	};
 };
 
+/**
+ * All the METHODS from the Redux store that should be available within the props of this component
+ *
+ * @type {{checkActivation: checkActivation}}
+ */
 const mapDispatchToProps = {
 	checkActivation
 };

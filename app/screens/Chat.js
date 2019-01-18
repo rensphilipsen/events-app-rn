@@ -1,8 +1,15 @@
 import React, {PureComponent} from 'react';
-import {GiftedChat} from 'react-native-gifted-chat'
+import {Bubble, GiftedChat} from 'react-native-gifted-chat'
 import Config from 'react-native-config';
 import {ChatManager, TokenProvider} from '@pusher/chatkit-client';
 import connect from "react-redux/es/connect/connect";
+import {COLOR} from "../styles/theme";
+import Container from "../components/Container/Container";
+import "moment/locale/nl";
+import moment from "moment";
+
+// TODO: Replace this with the actual
+const USER_AVATAR = 'https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png';
 
 class Chat extends PureComponent {
 
@@ -10,15 +17,27 @@ class Chat extends PureComponent {
 		messages: [],
 	};
 
+	/**
+	 * When component is  mounted
+	 */
 	componentDidMount() {
+		moment.locale('nl');
 		this.initChat();
 	}
 
+	/**
+	 * When component has updated
+	 *
+	 * @param prevProps
+	 */
 	componentDidUpdate(prevProps) {
 		if (prevProps.eventRoomId !== this.props.eventRoomId)
 			this.initChat();
 	}
 
+	/**
+	 * Initializes the chat
+	 */
 	initChat() {
 		this.setState({messages: []});
 
@@ -48,6 +67,11 @@ class Chat extends PureComponent {
 			});
 	}
 
+	/**
+	 * On receive of a message
+	 *
+	 * @param data
+	 */
 	onReceive = data => {
 		const {id, senderId, text, createdAt} = data;
 		const incomingMessage = {
@@ -57,8 +81,7 @@ class Chat extends PureComponent {
 			user: {
 				_id: senderId,
 				name: senderId,
-				avatar:
-					'https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png',
+				avatar: USER_AVATAR,
 			},
 		};
 
@@ -67,6 +90,11 @@ class Chat extends PureComponent {
 		}));
 	};
 
+	/**
+	 * On send of message(s)
+	 *
+	 * @param messages
+	 */
 	onSend = (messages = []) => {
 		messages.forEach(message => {
 			this.currentUser
@@ -82,19 +110,47 @@ class Chat extends PureComponent {
 		});
 	};
 
-	render() {
+	renderBubble(props) {
 		return (
-			<GiftedChat
-				messages={this.state.messages}
-				onSend={messages => this.onSend(messages)}
-				user={{
-					_id: this.props.user.email,
+			<Bubble
+				{...props}
+				wrapperStyle={{
+					right: {
+						backgroundColor: COLOR.PRIMARY
+					}
 				}}
 			/>
 		)
 	}
+
+	/**
+	 * The render method.
+	 *
+	 * @returns {*}
+	 */
+	render() {
+		return (
+			<Container>
+				<GiftedChat
+					messages={this.state.messages}
+					onSend={messages => this.onSend(messages)}
+					renderBubble={this.renderBubble}
+					locale={'nl'}
+					user={{
+						_id: this.props.user.email,
+					}}
+				/>
+			</Container>
+		)
+	}
 }
 
+/**
+ * All the VALUES from the Redux store that should be available within the props of this component
+ *
+ * @param state
+ * @returns {{eventRoomId: *, user: *}}
+ */
 const mapStateToProps = state => {
 	return {
 		user: state.users,
@@ -102,6 +158,11 @@ const mapStateToProps = state => {
 	}
 };
 
+/**
+ * All the METHODS from the Redux store that should be available within the props of this component
+ *
+ * @type {{}}
+ */
 const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat)

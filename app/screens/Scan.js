@@ -5,12 +5,19 @@ import theme from "../styles/theme";
 
 class Scan extends PureComponent {
 
-	onSuccess = (res) => {
-		console.log(res);
+	/**
+	 * If the code was successfully scanned.
+	 */
+	onSuccess = () => {
 		const {navigate} = this.props.navigation;
 		navigate('Register');
 	};
 
+	/**
+	 * The render method.
+	 *
+	 * @returns {*}
+	 */
 	render() {
 		return (
 			<View style={theme.introWrapper}>
