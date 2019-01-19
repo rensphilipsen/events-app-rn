@@ -164,7 +164,8 @@ jobs:
           name: Build and Deploy
           command: |
             cd android
-            bundle exec fastlane beta
+            bundle install
+            bundle exec fastlane beta_circleci
 
   ios:
     macos:
