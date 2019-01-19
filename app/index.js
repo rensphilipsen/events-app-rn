@@ -9,6 +9,11 @@ import { AsyncStorage } from 'react-native';
 let isRefreshing = false;
 let refreshSubscribers = [];
 
+/**
+ * Create an client for API requests
+ *
+ * @type {AxiosInstance}
+ */
 export const client = axios.create({
     baseURL: Config.API_URL,
     responseType: 'json'
