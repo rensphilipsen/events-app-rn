@@ -19,6 +19,12 @@ export const client = axios.create({
     responseType: 'json'
 });
 
+/**
+ * Generate an url from the API
+ *
+ * @param url
+ * @returns {string}
+ */
 export function getUrl(url) {
     return Config.API_URL + '/' + url;
 }
