@@ -146,7 +146,7 @@ jobs:
       - checkout:
           path: ~/project
           post:
-            - cp -r licenses/. $ANDROID_HOME/licenses
+            - cp -r android/licenses/. $ANDROID_HOME/licenses
       - attach_workspace:
           at: ~/project
 
