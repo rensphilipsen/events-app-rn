@@ -145,6 +145,8 @@ jobs:
     steps:
       - checkout:
           path: ~/project
+          post:
+            - cp -r licenses/. $ANDROID_HOME/licenses
       - attach_workspace:
           at: ~/project
 
