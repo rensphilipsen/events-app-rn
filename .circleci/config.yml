@@ -186,7 +186,7 @@ jobs:
       - run: *yarn
       - save-cache: *save-yarn-cache
 
-      - restore-cache: *restore-gem-ios3
+      - restore-cache: *restore-gem-ios
       - run: *install-gem-ios
       - save-cache: *save-gem-ios
 
