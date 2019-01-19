@@ -1,67 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<GiftedChat
-  bottomOffset={0}
-  dateFormat="ll"
-  forceGetKeyboardHeight={false}
-  imageProps={Object {}}
-  inverted={true}
-  isAnimated={true}
-  isLoadingEarlier={false}
-  keyboardShouldPersistTaps="never"
-  lightboxProps={Object {}}
-  listViewProps={Object {}}
-  loadEarlier={false}
-  locale={null}
-  maxInputLength={null}
-  messageIdGenerator={[Function]}
-  messages={
-    Array [
-      Object {
-        "_id": 1,
-        "createdAt": "2018-12-12 00:00",
-        "text": "Hello",
-        "user": Object {
-          "_id": 2,
-          "avatar": "https://placeimg.com/140/140/any",
-          "name": "React Native",
-        },
-      },
-    ]
-  }
-  minInputToolbarHeight={44}
-  onInputTextChanged={null}
-  onLoadEarlier={[Function]}
-  onLongPress={null}
-  onPressActionButton={null}
-  onPressAvatar={null}
-  onSend={[Function]}
-  placeholder="Type a message..."
-  renderAccessory={null}
-  renderActions={null}
-  renderAvatarOnTop={false}
-  renderBubble={null}
-  renderChatFooter={null}
-  renderComposer={null}
-  renderCustomView={null}
-  renderDay={null}
-  renderFooter={null}
-  renderInputToolbar={null}
-  renderLoadEarlier={null}
-  renderLoading={null}
-  renderMessage={null}
-  renderMessageImage={null}
-  renderMessageText={null}
-  renderSend={null}
-  renderSystemMessage={null}
-  renderTime={null}
-  showUserAvatar={false}
-  textInputProps={Object {}}
-  timeFormat="LT"
-  user={
+<Chat
+  store={
     Object {
-      "_id": 1,
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "notify": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": null,
     }
   }
 />

@@ -1,19 +1,19 @@
 export function activations(state = {}, action) {
-	switch (action.type) {
-		case 'ACTIVATIONS_VALIDATED':
-			return action.activation;
+    switch (action.type) {
+        case 'ACTIVATIONS_VALIDATED':
+            return action.activation;
 
-		default:
-			return state;
-	}
+        default:
+            return state;
+    }
 }
 
 export function activationLoading(state = false, action) {
-	switch (action.type) {
-		case 'ACTIVATIONS_LOADING':
-			return action.activationLoading;
+    switch (action.type) {
+        case 'ACTIVATIONS_LOADING':
+            return action.activationLoading;
 
-		default:
-			return state;
-	}
+        default:
+            return state;
+    }
 }

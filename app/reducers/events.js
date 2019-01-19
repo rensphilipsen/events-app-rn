@@ -1,39 +1,39 @@
 export function eventsHasErrored(state = false, action) {
-	switch (action.type) {
-		case 'EVENTS_HAS_ERRORED':
-			return action.hasErrored;
+    switch (action.type) {
+        case 'EVENTS_HAS_ERRORED':
+            return action.hasErrored;
 
-		default:
-			return state;
-	}
+        default:
+            return state;
+    }
 }
 
 export function eventsIsLoading(state = false, action) {
-	switch (action.type) {
-		case 'EVENTS_IS_LOADING':
-			return action.isLoading;
+    switch (action.type) {
+        case 'EVENTS_IS_LOADING':
+            return action.isLoading;
 
-		default:
-			return state;
-	}
+        default:
+            return state;
+    }
 }
 
 export function events(state = [], action) {
-	switch (action.type) {
-		case 'EVENTS_FETCH_SUCCESS':
-			return action.event;
+    switch (action.type) {
+        case 'EVENTS_FETCH_SUCCESS':
+            return action.event;
 
-		default:
-			return state;
-	}
+        default:
+            return state;
+    }
 }
 
 export function eventRoomId(state = [], action) {
-	switch (action.type) {
-		case 'EVENT_ROOM_ID_SUCCESS':
-			return action.event;
+    switch (action.type) {
+        case 'EVENT_ROOM_ID_SUCCESS':
+            return action.event;
 
-		default:
-			return state;
-	}
+        default:
+            return state;
+    }
 }

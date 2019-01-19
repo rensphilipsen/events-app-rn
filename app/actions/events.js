@@ -1,46 +1,46 @@
-import {client} from '../index';
+import { client } from '../index';
 
 export function eventsHasErrored(bool) {
-	return {
-		type: 'EVENTS_HAS_ERRORED',
-		hasErrored: bool
-	};
+    return {
+        type: 'EVENTS_HAS_ERRORED',
+        hasErrored: bool
+    };
 }
 
 export function eventsIsLoading(bool) {
-	return {
-		type: 'EVENTS_IS_LOADING',
-		isLoading: bool
-	};
+    return {
+        type: 'EVENTS_IS_LOADING',
+        isLoading: bool
+    };
 }
 
 export function eventsFetchSuccess(event) {
-	return {
-		type: 'EVENTS_FETCH_SUCCESS',
-		event
-	};
+    return {
+        type: 'EVENTS_FETCH_SUCCESS',
+        event
+    };
 }
 
 export function eventRoomIdSuccess(event) {
-	return {
-		type: 'EVENT_ROOM_ID_SUCCESS',
-		event
-	};
+    return {
+        type: 'EVENT_ROOM_ID_SUCCESS',
+        event
+    };
 }
 
 export function getAllEvents() {
-	return (dispatch) => {
-		dispatch(eventsIsLoading(true));
+    return (dispatch) => {
+        dispatch(eventsIsLoading(true));
 
-		return client.get('/events')
-			.then((data) => dispatch(eventsFetchSuccess(data.data.data)))
-			.catch(() => dispatch(eventsHasErrored(true)))
-			.then(() => dispatch(eventsIsLoading(false)));
-	}
+        return client.get('/events')
+            .then((data) => dispatch(eventsFetchSuccess(data.data.data)))
+            .catch(() => dispatch(eventsHasErrored(true)))
+            .then(() => dispatch(eventsIsLoading(false)));
+    }
 }
 
 export function setEventRoomId(roomId) {
-	return (dispatch) => {
-		return dispatch(eventRoomIdSuccess(roomId));
-	}
+    return (dispatch) => {
+        return dispatch(eventRoomIdSuccess(roomId));
+    }
 }

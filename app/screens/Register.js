@@ -1,12 +1,12 @@
-import React, {PureComponent} from 'react';
-import {StatusBar, View} from "react-native";
-import HeaderText from "../components/HeaderText/HeaderText";
-import Button from "../components/Button/Button";
-import theme, {COLOR} from "../styles/theme";
-import connect from "react-redux/es/connect/connect";
-import InputText from "../components/InputText/InputText";
-import {createUser} from "../actions/users";
-import Loader from "../components/Loader/Loader";
+import React, { PureComponent } from 'react';
+import { StatusBar, View } from 'react-native';
+import HeaderText from '../components/HeaderText/HeaderText';
+import Button from '../components/Button/Button';
+import theme, { COLOR } from '../styles/theme';
+import connect from 'react-redux/es/connect/connect';
+import InputText from '../components/InputText/InputText';
+import { createUser } from '../actions/users';
+import Loader from '../components/Loader/Loader';
 
 class Register extends PureComponent {
 
