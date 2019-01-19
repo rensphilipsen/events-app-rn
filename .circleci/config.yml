@@ -196,7 +196,10 @@ jobs:
 
       - run:
           name: version patch
-          command: npm version patch
+          command: |
+            git config --global user.email circleci@circleci
+            git config --global user.name CircleCI
+            npm version patch
 
       - run:
           name: Create a main.jsbundle
