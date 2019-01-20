@@ -1,0 +1,5 @@
+git_url "git@bitbucket.org:socialbrothers/certificates.git"
+
+type "appstore" # The default type, can be: appstore, adhoc or development
+
+app_identifier "nl.socialbrothers.eventsapp"
