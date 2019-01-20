@@ -370,6 +370,13 @@
 			remoteGlobalIDString = 3D7682761D8E76B80014119E;
 			remoteInfo = SplashScreen;
 		};
+		7B57FC2521F4BCBD00613A3C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0F93AF5C0114758BFEC99C1 /* ReactNativeConfig.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3DF7F6AC203AA09B00D0EAB7;
+			remoteInfo = "ReactNativeConfig-tvOS";
+		};
 		7B5BD93D21393615006AEC50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E0F93AF5C0114758BFEC99C1 /* ReactNativeConfig.xcodeproj */;
@@ -782,6 +789,7 @@
 			isa = PBXGroup;
 			children = (
 				7B5BD93E21393615006AEC50 /* libReactNativeConfig.a */,
+				7B57FC2621F4BCBD00613A3C /* libReactNativeConfig-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1386,6 +1394,13 @@
 			remoteRef = 7B468AFD21CCEC080088A5DB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		7B57FC2621F4BCBD00613A3C /* libReactNativeConfig-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libReactNativeConfig-tvOS.a";
+			remoteRef = 7B57FC2521F4BCBD00613A3C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7B5BD93E21393615006AEC50 /* libReactNativeConfig.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1571,7 +1586,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 53085936eb7a40b48cc2af930e235f318e108e95 27202525f0919325def0aa0572b8f38d2c05cb278d71a3cd82f59a884075981a\n";
 		};
 		BC00D8B5E568E5F6830DE7C8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
