@@ -42,7 +42,6 @@
 		370B75D42BA04BADAC226701 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B02C9BEA1D2494E9790BE0F /* Octicons.ttf */; };
 		37B4FF30B11B4A26AD602475 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22FE0EE55C924841B7667499 /* Ionicons.ttf */; };
 		46950C87E5A94FB9AF835BE7 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A6F7C9BA529406CA4D7A551 /* Zocial.ttf */; };
-		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		62AA4E424A804076974363A6 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36B6D9C4CC8D45F5A4DB4973 /* Foundation.ttf */; };
 		6F631BB893044DDF8D633415 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8C17AF6853E419DAEC45E6F /* FontAwesome5_Solid.ttf */; };
 		7B3052F021F07C8600037F9A /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B3052C321F07C2600037F9A /* libFastImage.a */; };
@@ -506,9 +505,7 @@
 			files = (
 				7B3052F021F07C8600037F9A /* libFastImage.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
-				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
-				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
@@ -1509,7 +1506,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		0D577B6D6E6C693CB7337A69 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
