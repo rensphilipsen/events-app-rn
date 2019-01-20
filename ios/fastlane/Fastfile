@@ -11,17 +11,17 @@
 
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
-fastlane_version "2.67.0"
+fastlane_version '2.67.0'
 
 default_platform :ios
 
 platform :ios do
   before_all do
     setup_circle_ci
-    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
+  desc 'Submit a new Beta Build to Crashlytics Beta'
   lane :beta do
 
       # Ensure that your git status is not dirty
@@ -29,10 +29,10 @@ platform :ios do
 
       # Increment the build number (not the version number)
       # Providing the xcodeproj is optional
-      increment_build_number(xcodeproj: "EventsApp.xcodeproj")
+      increment_build_number(xcodeproj: 'EventsApp.xcodeproj')
 
       # Commit the version bump
-      commit_version_bump(xcodeproj: "EventsApp.xcodeproj")
+      commit_version_bump(xcodeproj: 'EventsApp.xcodeproj')
 
       # Add a git tag for this build. This will automatically
       # use an appropriate git tag name
@@ -42,16 +42,16 @@ platform :ios do
       push_to_git_remote
 
       #Build the app and upload to Crashlytics
-      build_app
+      build_app(scheme: 'EventsApp',
+                workspace: 'EventsApp.xcworkspace')
       crashlytics(
               api_token: '53085936eb7a40b48cc2af930e235f318e108e95',
-              build_secret: '27202525f0919325def0aa0572b8f38d2c05cb278d71a3cd82f59a884075981a'
-            )
+              build_secret: '27202525f0919325def0aa0572b8f38d2c05cb278d71a3cd82f59a884075981a')
   end
 
-  desc "Deploy a new version to the App Store"
+  desc 'Deploy a new version to the App Store'
   lane :release do
-    # match(type: "appstore")
+    # match(type: 'appstore')
     # snapshot
     gym # Build your app - more options available
     deliver(force: true)
@@ -62,7 +62,7 @@ platform :ios do
     # This block is called, only if the executed lane was successful
 
     slack(
-      message: "Successfully deployed new App Update for iOS."
+      message: 'Successfully deployed new App Update for iOS.'
     )
   end
 
