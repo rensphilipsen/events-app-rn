@@ -17,12 +17,7 @@ default_platform :android
 
 platform :android do
   before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-  end
-
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
   end
 
   desc "Submit a new Beta Build to Crashlytics Beta"
@@ -49,16 +44,16 @@ platform :android do
   after_all do |lane|
     # This block is called, only if the executed lane was successful
 
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+    slack(
+      message: "Successfully deployed new App Update for Android."
+    )
   end
 
   error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+    slack(
+      message: exception.message,
+      success: false
+    )
   end
 end
 
