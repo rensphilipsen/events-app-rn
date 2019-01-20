@@ -16,6 +16,7 @@ class Splash extends PureComponent {
     constructor(props) {
         super(props);
         OneSignal.init(Config.ONESIGNAL_APP_ID);
+
         this.bootstrapAsync();
     }
 
