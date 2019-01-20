@@ -18,11 +18,7 @@ default_platform :ios
 platform :ios do
   before_all do
     setup_circle_ci
-  end
-
-  desc "Runs all the tests"
-  lane :test do
-    scan
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
   end
 
   desc "Submit a new Beta Build to Crashlytics Beta"
@@ -62,20 +58,18 @@ platform :ios do
     # frameit
   end
 
-  # You can define as many lanes as you want
-
   after_all do |lane|
     # This block is called, only if the executed lane was successful
 
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+    slack(
+      message: "Successfully deployed new App Update for iOS."
+    )
   end
 
   error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+    slack(
+      message: exception.message,
+      success: false
+    )
   end
 end
