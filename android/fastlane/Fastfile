@@ -27,10 +27,7 @@ platform :android do
 
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
-    gradle(
-        task: 'assemble',
-        build_type: 'Release'
-      )
+    gradle(task: 'assembleRelease')
 
       crashlytics(
         api_token: '53085936eb7a40b48cc2af930e235f318e108e95',
