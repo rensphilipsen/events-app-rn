@@ -987,6 +987,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 2X5VJ59JV2;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1757,6 +1758,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EventsApp/EventsApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 23;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 2X5VJ59JV2;
@@ -1782,6 +1785,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.socialbrothers.eventsapp;
 				PRODUCT_NAME = EventsApp;
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore nl.socialbrothers.eventsapp";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1792,6 +1796,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EventsApp/EventsApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 2X5VJ59JV2;
 				HEADER_SEARCH_PATHS = (
@@ -1816,6 +1822,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.socialbrothers.eventsapp;
 				PRODUCT_NAME = EventsApp;
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore nl.socialbrothers.eventsapp";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
