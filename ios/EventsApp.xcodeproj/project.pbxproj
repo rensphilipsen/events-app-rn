@@ -1760,7 +1760,7 @@
 				CODE_SIGN_ENTITLEMENTS = EventsApp/EventsApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 2X5VJ59JV2;
 				HEADER_SEARCH_PATHS = (
@@ -1798,7 +1798,7 @@
 				CODE_SIGN_ENTITLEMENTS = EventsApp/EventsApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 2X5VJ59JV2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
