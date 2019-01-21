@@ -3,14 +3,14 @@ import { StatusBar, View } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import theme from '../styles/theme';
 
-class Scan extends PureComponent {
+class RegisterScan extends PureComponent {
 
     /**
      * If the code was successfully scanned.
      */
     onSuccess = () => {
         const {navigate} = this.props.navigation;
-        navigate('Register');
+        navigate('RegisterUser');
     };
 
     /**
@@ -30,4 +30,4 @@ class Scan extends PureComponent {
     }
 }
 
-export default Scan
+export default RegisterScan
