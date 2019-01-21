@@ -45,6 +45,30 @@ export function createUser(user) {
     }
 }
 
+export function loginUser(email, password) {
+    return dispatch => {
+        dispatch(userLoading(true));
+
+        client.post('/authentication/login', {
+            email: email,
+            password: password
+        }).then((data) => {
+            console.log(data);
+            return AsyncStorage.setItem('access_token', data.data.access_token).then(() => {
+                dispatch(loadUser());
+                return dispatch(getAllEvents()).then(() => {
+                    dispatch(userLoading(false));
+                });
+            })
+        }, (err) => {
+
+            console.log(err.response);
+            dispatch(userLoading(false));
+            return dispatch(userLoaded(false))
+        });
+    }
+}
+
 export function loadUser() {
     return dispatch => {
         dispatch(userLoading(true));

@@ -11,6 +11,8 @@ import RegisterScan from '../screens/RegisterScan';
 import { COLOR, FONT } from '../styles/theme';
 import ListItemDetail from '../screens/ListItemDetail';
 import Timeline from '../screens/Timeline';
+import Intro from '../screens/Intro';
+import Login from '../screens/Login';
 
 const mainNavigator = createStackNavigator({
         EventDetail: {screen: EventDetail},
@@ -93,10 +95,12 @@ const rootNavigator = createBottomTabNavigator(
     }
 );
 
-const registerNavigator = createStackNavigator(
+const introNavigator = createStackNavigator(
     {
+        Intro: Intro,
+        Login: Login,
         Register: Register,
-        Scan: RegisterScan,
+        RegisterScan: RegisterScan,
         RegisterUser: RegisterUser
     },
     {
@@ -114,7 +118,7 @@ const registerNavigator = createStackNavigator(
 
 export default createSwitchNavigator({
     Splash: Splash,
-    Register: registerNavigator,
+    Intro: introNavigator,
     Main: rootNavigator
 }, {
     initialRouteName: 'Splash'

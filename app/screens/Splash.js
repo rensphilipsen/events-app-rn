@@ -38,7 +38,7 @@ class Splash extends PureComponent {
         if (token)
             this.props.loadUser();
 
-        this.props.navigation.navigate(token ? 'Main' : 'Register');
+        this.props.navigation.navigate(token ? 'Main' : 'Intro');
     };
 
     /**

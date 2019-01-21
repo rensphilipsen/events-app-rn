@@ -74,6 +74,9 @@ class EventDetail extends PureComponent {
      */
     componentDidUpdate(prevProps) {
         if (!this.props.eventsLoading) {
+            if (this.props.eventsErrored)
+                this.navigate('Intro');
+
             this.setRoomId();
         }
     }
@@ -303,6 +306,7 @@ class EventDetail extends PureComponent {
 const mapStateToProps = state => {
     return {
         event: state.events[0],
+        eventsErrored: state.eventsHasErrored,
         eventsLoading: state.eventsIsLoading
     };
 };
