@@ -1,8 +1,27 @@
 import React, { PureComponent } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import ListItemText from '../components/ListItemText/ListItemText';
+import Barcode from 'react-native-barcode-builder';
 
 class ListItemDetail extends PureComponent {
+
+
+    /**
+     * Render content based on boolean
+     *
+     * @param isTicket
+     * @param data
+     * @returns {*}
+     */
+    renderContent(isTicket, data) {
+        if (isTicket)
+            return (
+                <View style={{alignSelf: 'center'}}>
+                    <Barcode height={200} width={3} value={data} format="CODE128"/>
+                </View>);
+        else
+            return <ListItemText>{data}</ListItemText>;
+    }
 
     /**
      * The render method.
@@ -11,14 +30,12 @@ class ListItemDetail extends PureComponent {
      */
     render() {
         const {navigation} = this.props;
-        const description = navigation.getParam('data');
-
+        const isTicket = navigation.getParam('isTicket');
+        const data = navigation.getParam('data');
 
         return (
-            <ScrollView>
-                <ListItemText>
-                    {description}
-                </ListItemText>
+            <ScrollView style={{flex: 1}}>
+                {this.renderContent(isTicket, data)}
             </ScrollView>);
     }
 }

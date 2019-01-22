@@ -14,6 +14,11 @@ import Timeline from '../screens/Timeline';
 import Intro from '../screens/Intro';
 import Login from '../screens/Login';
 
+/**
+ * Main navigator which contains all event routes
+ *
+ * @type {NavigationContainer}
+ */
 const mainNavigator = createStackNavigator({
         EventDetail: {screen: EventDetail},
         EventList: {screen: EventList},
@@ -43,6 +48,11 @@ const mainNavigator = createStackNavigator({
     }
 );
 
+/**
+ * Root navigator which is used for the bototm bar navigation
+ *
+ * @type {NavigationContainer}
+ */
 const rootNavigator = createBottomTabNavigator(
     {
         Home: {
@@ -95,6 +105,11 @@ const rootNavigator = createBottomTabNavigator(
     }
 );
 
+/**
+ * Intro navigator which is used for all registration and login routes
+ *
+ * @type {NavigationContainer}
+ */
 const introNavigator = createStackNavigator(
     {
         Intro: Intro,
@@ -116,6 +131,9 @@ const introNavigator = createStackNavigator(
     }
 );
 
+/**
+ * Switch navigator for showing splash
+ */
 export default createSwitchNavigator({
     Splash: Splash,
     Intro: introNavigator,

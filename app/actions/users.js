@@ -53,16 +53,13 @@ export function loginUser(email, password) {
             email: email,
             password: password
         }).then((data) => {
-            console.log(data);
             return AsyncStorage.setItem('access_token', data.data.access_token).then(() => {
                 dispatch(loadUser());
                 return dispatch(getAllEvents()).then(() => {
                     dispatch(userLoading(false));
                 });
             })
-        }, (err) => {
-
-            console.log(err.response);
+        }, () => {
             dispatch(userLoading(false));
             return dispatch(userLoaded(false))
         });

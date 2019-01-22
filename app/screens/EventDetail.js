@@ -45,12 +45,20 @@ class EventDetail extends PureComponent {
             onPress: () => this.navigateDetail('description')
         },
         {
+            icon: 'local-offer',
+            value: 'ticket',
+            template: 'Klik hier voor uw ticket',
+            onPress: () => this.navigateDetail('ticket')
+        },
+        {
             icon: 'account-balance-wallet',
             value: 'entrance_fee',
             template: 'Entree voor dit event: {value}',
             disabled: true
         },
     ];
+
+    otherFields = ['ticket'];
 
     /**
      * Constructor
@@ -87,7 +95,12 @@ class EventDetail extends PureComponent {
      * @param meta
      */
     navigateDetail(meta) {
-        this.navigate('ListItemDetail', {data: this.getMeta(meta)})
+
+        const isTicket = (meta === 'ticket');
+
+        const data = isTicket ? 'abcdef' : this.getMeta(meta);
+
+        this.navigate('ListItemDetail', {isTicket: isTicket, data: data})
     };
 
     /**
@@ -241,14 +254,24 @@ class EventDetail extends PureComponent {
             const field = this.defaultFields.find(field => field.value === meta.key && meta.value !== '');
 
             if (field)
-                fieldsToRender.push(
-                    <ListItem icon={field.icon} key={meta.key} onPress={field.onPress} disabled={field.disabled}>
-                        <ListItemText numberOfLines={5}>{this.getAdditionalFieldValue(field, meta)}</ListItemText>
-                    </ListItem>
-                );
+                fieldsToRender.push(this.renderAdditionalField(field, meta));
+        });
+
+        this.otherFields.forEach((fieldValue) => {
+            const field = this.defaultFields.find(field => field.value === fieldValue && this.event.type === 'event');
+
+            if (field)
+                fieldsToRender.push(this.renderAdditionalField(field));
         });
 
         return fieldsToRender;
+    }
+
+    renderAdditionalField(field, meta) {
+        return (
+            <ListItem icon={field.icon} key={field.value} onPress={field.onPress} disabled={field.disabled}>
+                <ListItemText numberOfLines={5}>{this.getAdditionalFieldValue(field, meta)}</ListItemText>
+            </ListItem>);
     }
 
     /**
@@ -259,8 +282,10 @@ class EventDetail extends PureComponent {
      * @returns {*}
      */
     getAdditionalFieldValue(field, meta) {
-        if (field.template)
+        if (field.template && meta)
             return field.template.replace(/\{(value)\}/g, meta.value);
+        else if (field.template)
+            return field.template;
 
         return meta.value;
     }
