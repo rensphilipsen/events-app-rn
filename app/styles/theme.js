@@ -20,6 +20,12 @@ export const FONT = {
 };
 
 export default StyleSheet.create({
+    shadow: {
+        shadowColor: COLOR.SHADOW,
+        shadowRadius: 5,
+        shadowOpacity: 0.1,
+        shadowOffset: {height: 5}
+    },
     introWrapper: {
         flex: 1,
         justifyContent: 'center',
@@ -29,17 +35,12 @@ export default StyleSheet.create({
     eventDetailImage: {
         width: 120,
         height: 120,
-        margin: 5,
-        shadowColor: COLOR.SHADOW,
-        shadowRadius: 5,
-        shadowOpacity: 0.1,
-        borderRadius: 5,
-        shadowOffset: {height: 5},
+        ...this.shadow
     },
     galleryCloseButtonWrapper: {
         alignSelf: 'flex-end',
         padding: 20,
-        top: 30,
+        top: 15,
         right: 8,
         zIndex: 9999,
         position: 'absolute'
@@ -55,5 +56,12 @@ export default StyleSheet.create({
     },
     tweetUserName: {
         color: COLOR.WHITE_DARKEST
-    }
+    },
+    addGalleryWrapper: {
+        backgroundColor: COLOR.WHITE_DARKER,
+        justifyContent: 'center',
+    },
+    addGalleryIcon: {
+        alignSelf: 'center',
+    },
 });

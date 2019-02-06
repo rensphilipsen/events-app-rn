@@ -2,9 +2,18 @@ import React, { PureComponent } from 'react';
 import { ScrollView, View } from 'react-native';
 import ListItemText from '../components/ListItemText/ListItemText';
 import Barcode from 'react-native-barcode-builder';
+import { FONT } from '../styles/theme';
 
 class ListItemDetail extends PureComponent {
 
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: navigation.getParam('title'),
+            headerTitleStyle: {
+                fontFamily: FONT.REGULAR
+            },
+        };
+    };
 
     /**
      * Render content based on boolean

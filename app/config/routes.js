@@ -38,7 +38,7 @@ const mainNavigator = createStackNavigator({
                 shadowColor: 'transparent',
                 backgroundColor: COLOR.WHITE,
                 shadowRadius: 5,
-                shadowOpacity: 0.1,
+                shadowOpacity: 1,
                 borderTopWidth: 0,
                 shadowOffset: {
                     height: 0,

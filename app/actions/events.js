@@ -21,9 +21,9 @@ export function eventsFetchSuccess(event) {
     };
 }
 
-export function eventRoomIdSuccess(event) {
+export function eventsMediaUploadSuccess(event) {
     return {
-        type: 'EVENT_ROOM_ID_SUCCESS',
+        type: 'EVENTS_MEDIA_UPLOAD_SUCCESS',
         event
     };
 }
@@ -39,8 +39,24 @@ export function getAllEvents() {
     }
 }
 
-export function setEventRoomId(roomId) {
+export function addMediaToEvent(eventId, media) {
     return (dispatch) => {
-        return dispatch(eventRoomIdSuccess(roomId));
+        dispatch(eventsIsLoading(true));
+
+        const formData = new FormData();
+        formData.append('media', {
+            uri: media.uri,
+            type: media.type ? media.type : 'image/jpeg',
+            name: media.fileName ? media.fileName : 'test.jpg',
+            data: media.data
+        });
+
+        return client.post('/events/' + eventId + '/medias', formData)
+            .then((data) => dispatch(eventsMediaUploadSuccess(data.data.data)))
+            .catch((error) => {
+                console.log(error.response);
+                dispatch(eventsHasErrored(true))
+            })
+            .then(() => dispatch(eventsIsLoading(false)));
     }
 }

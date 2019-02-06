@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLOR } from '../../styles/theme';
+import { COLOR, FONT } from '../../styles/theme';
 
 export default StyleSheet.create({
     view: {
@@ -9,11 +9,20 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row'
     },
-    person: {
-        width: 65,
-        height: 65,
-        borderRadius: 35,
-        marginHorizontal: 7,
-        marginVertical: 15
+    personWrapper: {
+        marginHorizontal: 10,
+        marginVertical: 15,
+        alignItems: 'center',
+        maxWidth: 70
+    },
+    personImage: {
+        width: 50,
+        height: 50,
+        borderRadius: 50 / 2,
+    },
+    personName: {
+        marginTop: 5,
+        color: COLOR.WHITE,
+        fontFamily: FONT.BOLD
     }
 });

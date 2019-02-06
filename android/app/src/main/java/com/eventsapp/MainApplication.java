@@ -16,6 +16,7 @@ import com.facebook.soloader.SoLoader;
 import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +39,9 @@ public class MainApplication extends Application implements ReactApplication {
             new SplashScreenReactPackage(),
             new VectorIconsPackage(),
             new ReactNativeConfigPackage(),
-            new RNFirebaseCrashlyticsPackage()
+            new RNFirebaseCrashlyticsPackage(),
+            new RNFirebaseAuthPackage(),
+            new RNFirebaseDatabasePackage()
       );
     }
 

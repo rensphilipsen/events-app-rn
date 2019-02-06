@@ -1,18 +1,51 @@
-import React from 'react';
-import { Image, ScrollView } from 'react-native';
+import React, { PureComponent } from 'react';
+import { Image, ScrollView, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
+import { getUrl } from '../../utils/Helpers';
 
-const PeopleAttending = (props) => {
-    return (
-        <ScrollView style={styles.view} horizontal={true}>
-            <Image style={styles.person} source={require('../../../assets/user1.jpg')}/>
-            <Image style={styles.person} source={require('../../../assets/user2.jpg')}/>
-            <Image style={styles.person} source={require('../../../assets/user3.jpg')}/>
-            <Image style={styles.person} source={require('../../../assets/user4.jpg')}/>
-            <Image style={styles.person} source={require('../../../assets/user5.jpg')}/>
-            <Image style={styles.person} source={require('../../../assets/user6.jpg')}/>
-        </ScrollView>
-    );
-};
+class PeopleAttending extends PureComponent {
+
+    event = null;
+
+    renderUsers(data) {
+        const items = [];
+        const users = data.data;
+
+        if (users.length > 1)
+            users.forEach((user) => {
+                items.push(this.renderUser(user));
+            });
+
+        return items;
+    }
+
+    getUserProfilePicture(user) {
+        if (user.profile_picture)
+            return {uri: getUrl(user.profile_picture)};
+
+        return require('../../../assets/placeholder_user.png');
+    }
+
+    renderUser(user) {
+        return (
+            <TouchableOpacity style={styles.personWrapper} key={user.id}>
+                <Image style={styles.personImage} source={this.getUserProfilePicture(user)}/>
+                <Text style={styles.personName} ellipsizeMode='tail' numberOfLines={1}>
+                    {user.name}
+                </Text>
+            </TouchableOpacity>
+        );
+    }
+
+    render() {
+        this.event = this.props.event;
+
+        return (
+            <ScrollView style={styles.view} horizontal={true}>
+                {this.renderUsers(this.event.users)}
+            </ScrollView>
+        );
+    }
+}
 
 export default PeopleAttending

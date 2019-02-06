@@ -1,17 +1,18 @@
 import React, { PureComponent } from 'react';
-import { getAllEvents, setEventRoomId } from '../actions/events';
+import { addMediaToEvent, getAllEvents } from '../actions/events';
 import FeatureImagePage from '../components/FeatureImagePage/FeatureImagePage';
 import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import ListItem from '../components/ListItem/ListItem';
-import theme from '../styles/theme';
+import theme, { COLOR } from '../styles/theme';
 import connect from 'react-redux/es/connect/connect';
 import ListItemText from '../components/ListItemText/ListItemText';
-import moment from 'moment';
-import { getUrl } from '../index';
+import { getUrl } from '../utils/Helpers';
 import FastImage from 'react-native-fast-image';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import call from 'react-native-phone-call';
+import ImagePicker from 'react-native-image-picker';
+import PeopleAttending from '../components/PeopleAttending/PeopleAttending';
 
 class EventDetail extends PureComponent {
 
@@ -21,10 +22,21 @@ class EventDetail extends PureComponent {
      * @type {{header: null}}
      */
     static navigationOptions = {
-        header: null
+        headerTransparent: true,
+        headerTintColor: COLOR.WHITE,
+        headerStyle: {
+            backgroundColor: 'transparent',
+        }
     };
 
+    /**
+     * Selected event
+     */
     event;
+
+    /**
+     * used to navigate to other screen
+     */
     navigate;
 
     /**
@@ -42,13 +54,13 @@ class EventDetail extends PureComponent {
         {
             icon: 'info',
             value: 'description',
-            onPress: () => this.navigateDetail('description')
+            onPress: () => this.navigateDetail('description', 'Beschrijving')
         },
         {
             icon: 'local-offer',
             value: 'ticket',
             template: 'Klik hier voor uw ticket',
-            onPress: () => this.navigateDetail('ticket')
+            onPress: () => this.navigateDetail('ticket', 'Ticket')
         },
         {
             icon: 'account-balance-wallet',
@@ -81,26 +93,21 @@ class EventDetail extends PureComponent {
      * @param prevProps
      */
     componentDidUpdate(prevProps) {
-        if (!this.props.eventsLoading) {
+        if (!this.props.eventsLoading)
             if (this.props.eventsErrored)
                 this.navigate('Intro');
-
-            this.setRoomId();
-        }
     }
 
     /**
      * Navigate to a detail page
      *
      * @param meta
+     * @param title
      */
-    navigateDetail(meta) {
-
+    navigateDetail(meta, title) {
         const isTicket = (meta === 'ticket');
-
-        const data = isTicket ? 'abcdef' : this.getMeta(meta);
-
-        this.navigate('ListItemDetail', {isTicket: isTicket, data: data})
+        const data = isTicket ? this.event.code : this.getMeta(meta);
+        this.navigate('ListItemDetail', {isTicket: isTicket, data: data, title: title})
     };
 
     /**
@@ -114,24 +121,11 @@ class EventDetail extends PureComponent {
         return metas.find((meta) => meta.key === key).value;
     }
 
-    /**
-     * Set the room Id which is used for the chat to interact with the correct room
-     */
-    setRoomId() {
-        this.props.setEventRoomId(this.getMeta('chatkit_room_id'));
-    }
-
-    /**
-     * Get the appropiate feature image
-     *
-     * @returns {{uri: *}}
-     */
-    getFeatureImage() {
-        const medias = this.event['medias'].data;
-
-        return medias.length >= 1 ?
-            {uri: getUrl(medias[0].path)} :
-            require('../../assets/placeholder.png')
+    renderPeopleAttending() {
+        return (
+            <PeopleAttending
+                event={this.event}/>
+        );
     }
 
     /**
@@ -147,17 +141,30 @@ class EventDetail extends PureComponent {
             items.push(this.renderGalleryItem(item));
         });
 
-        if (medias.length >= 1)
-            return (
-                <View>
-                    <ListItem contentStyle={{flex: 1, flexDirection: 'row'}} disabled={true}>
-                        <ScrollView horizontal={true}>
-                            {items}
-                        </ScrollView>
-                    </ListItem>
-                    {this.renderGalleryViewer(medias)}
-                </View>
-            );
+        return (
+            <View>
+                <ListItem contentStyle={{flex: 1, flexDirection: 'row'}} disabled={true}>
+                    <ScrollView horizontal={true}>
+                        <TouchableOpacity onPress={() => this.addGalleryItem()}
+                                          style={[theme.eventDetailImage, theme.addGalleryWrapper]}>
+                            <Icon size={60} name={'add'} color={COLOR.PRIMARY} style={theme.addGalleryIcon}/>
+                        </TouchableOpacity>
+                        {items}
+                    </ScrollView>
+                </ListItem>
+                {this.renderGalleryViewer(medias)}
+            </View>
+        );
+    }
+
+    /**
+     * Add item to the gallery
+     */
+    addGalleryItem() {
+        ImagePicker.showImagePicker({path: 'images'}, (response) => {
+            if (!response.didCancel && !response.error)
+                this.props.addMediaToEvent(this.event.id, response);
+        });
     }
 
     /**
@@ -225,22 +232,6 @@ class EventDetail extends PureComponent {
     }
 
     /**
-     * Render the date if it's available and/or applicable.
-     *
-     * @returns {*}
-     */
-    renderDate() {
-        // Parse date
-        const start = this.event.start_time ? moment(this.event.start_time) : null;
-        const end = this.event.end_time ? moment(this.event.end_time) : null;
-
-        // Condition checking
-        if (start && end) return start.format('dd D MMM') + ' - ' + end.format('dd D MMM YYYY');
-        else if (start) return start.format('dd D MMM YYYY');
-        else return '';
-    }
-
-    /**
      * Render all other additional fields that should be rendered if they are available and/or applicable.
      *
      * @returns {Array}
@@ -298,27 +289,20 @@ class EventDetail extends PureComponent {
     render() {
         const {navigation} = this.props;
         this.navigate = navigation.navigate;
-
         this.event = navigation.state.params ? navigation.state.params['event'] : this.props.event;
 
-        // Show an empty view until the event is done loading
         if (this.event)
             return (
-                <FeatureImagePage
-                    image={this.getFeatureImage()}
-                    title={this.event.title}
-                    type={this.event.type}
-                    date={this.renderDate()}>
-
+                <FeatureImagePage event={this.event} eventsLoading={this.props.eventsLoading}>
+                    {this.renderPeopleAttending()}
                     {this.renderEvents()}
-
                     {this.renderAdditionalFields()}
-
                     {this.renderGallery()}
-
-                </FeatureImagePage>);
+                </FeatureImagePage>
+            );
         else
             return <View/>
+
     }
 }
 
@@ -339,11 +323,11 @@ const mapStateToProps = state => {
 /**
  * All the METHODS from the Redux store that should be available within the props of this component
  *
- * @type {{getAllEvents: getAllEvents, setEventRoomId: setEventRoomId}}
+ * @type {{getAllEvents: getAllEvents}}
  */
 const mapDispatchToProps = {
     getAllEvents,
-    setEventRoomId
+    addMediaToEvent
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventDetail)

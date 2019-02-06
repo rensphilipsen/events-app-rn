@@ -2,15 +2,14 @@ import React, { PureComponent } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import ListItemText from '../ListItemText/ListItemText';
-import { getUrl } from '../../index';
+import { getDate, getUrl } from '../../utils/Helpers';
 
-export default class Row extends PureComponent {
+class Row extends PureComponent {
+
+    event;
 
     getFeatureImage() {
-        const medias = this.props.item['medias'].data;
-
-
-        console.log(medias);
+        const medias = this.event['medias'].data;
 
         return medias.length >= 1 ?
             {uri: getUrl(medias[0].path)} :
@@ -19,9 +18,11 @@ export default class Row extends PureComponent {
 
     render() {
         const {push} = this.props.navigation;
+        this.event = this.props.item;
+
 
         return (
-            <TouchableOpacity style={styles.row} onPress={() => push('EventDetail', {event: this.props.item})}>
+            <TouchableOpacity style={styles.row} onPress={() => push('EventDetail', {event: this.event})}>
                 <View>
                     <View style={[styles.image, styles.imageWrapper]}>
                         <Image
@@ -31,9 +32,9 @@ export default class Row extends PureComponent {
                         />
                     </View>
                     <ListItemText>
-                        {this.props.item.title}
+                        {this.props.item.title}&nbsp;
                         <Text style={styles.smallText}>
-
+                            {getDate(this.event)}
                         </Text>
                     </ListItemText>
                 </View>
@@ -42,3 +43,5 @@ export default class Row extends PureComponent {
     }
 
 }
+
+export default Row
