@@ -1,5 +1,6 @@
 import { client } from '../index';
 
+// ACTIONS
 export function activationValidated(activation) {
     return {
         type: 'ACTIVATIONS_VALIDATED',
@@ -14,6 +15,7 @@ export function activationLoading(bool) {
     };
 }
 
+// ACTION CREATORS
 export function checkActivation(code) {
     return dispatch => {
         dispatch(activationLoading(true));

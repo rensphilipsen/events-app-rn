@@ -1,5 +1,6 @@
 import { client } from '../index';
 
+// ACTIONS
 export function eventsHasErrored(bool) {
     return {
         type: 'EVENTS_HAS_ERRORED',
@@ -28,6 +29,7 @@ export function eventsMediaUploadSuccess(event) {
     };
 }
 
+// ACTION CREATORS
 export function getAllEvents() {
     return (dispatch) => {
         dispatch(eventsIsLoading(true));
@@ -43,6 +45,7 @@ export function addMediaToEvent(eventId, media) {
     return (dispatch) => {
         dispatch(eventsIsLoading(true));
 
+        // Create a form data object which will be send to the API
         const formData = new FormData();
         formData.append('media', {
             uri: media.uri,
@@ -53,10 +56,7 @@ export function addMediaToEvent(eventId, media) {
 
         return client.post('/events/' + eventId + '/medias', formData)
             .then((data) => dispatch(eventsMediaUploadSuccess(data.data.data)))
-            .catch((error) => {
-                console.log(error.response);
-                dispatch(eventsHasErrored(true))
-            })
+            .catch((error) => dispatch(eventsHasErrored(true)))
             .then(() => dispatch(eventsIsLoading(false)));
     }
 }

@@ -2,6 +2,7 @@ import { client } from '../index';
 import { getAllEvents } from './events';
 import { AsyncStorage } from 'react-native';
 
+// ACTIONS
 export function userLoaded(user) {
     return {
         type: 'USERS_LOADED',
@@ -16,6 +17,7 @@ export function userLoading(bool) {
     };
 }
 
+// ACTION CREATORS
 export function createUser(user) {
     return dispatch => {
         dispatch(userLoading(true));

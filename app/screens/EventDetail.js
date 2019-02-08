@@ -245,23 +245,23 @@ class EventDetail extends PureComponent {
             const field = this.defaultFields.find(field => field.value === meta.key && meta.value !== '');
 
             if (field)
-                fieldsToRender.push(this.renderAdditionalField(field, meta));
+                fieldsToRender.push(EventDetail.renderAdditionalField(field, meta));
         });
 
         this.otherFields.forEach((fieldValue) => {
             const field = this.defaultFields.find(field => field.value === fieldValue && this.event.type === 'event');
 
             if (field)
-                fieldsToRender.push(this.renderAdditionalField(field));
+                fieldsToRender.push(EventDetail.renderAdditionalField(field));
         });
 
         return fieldsToRender;
     }
 
-    renderAdditionalField(field, meta) {
+    static renderAdditionalField(field, meta) {
         return (
             <ListItem icon={field.icon} key={field.value} onPress={field.onPress} disabled={field.disabled}>
-                <ListItemText numberOfLines={5}>{this.getAdditionalFieldValue(field, meta)}</ListItemText>
+                <ListItemText numberOfLines={5}>{EventDetail.getAdditionalFieldValue(field, meta)}</ListItemText>
             </ListItem>);
     }
 
@@ -272,7 +272,7 @@ class EventDetail extends PureComponent {
      * @param meta
      * @returns {*}
      */
-    getAdditionalFieldValue(field, meta) {
+    static getAdditionalFieldValue(field, meta) {
         if (field.template && meta)
             return field.template.replace(/\{(value)\}/g, meta.value);
         else if (field.template)
