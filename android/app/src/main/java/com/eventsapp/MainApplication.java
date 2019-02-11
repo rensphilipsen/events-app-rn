@@ -19,6 +19,7 @@ import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +44,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeConfigPackage(),
             new RNFirebaseCrashlyticsPackage(),
             new RNFirebaseAuthPackage(),
-            new RNFirebaseDatabasePackage()
+            new RNFirebaseDatabasePackage(),
+            new FastImageViewPackage()
       );
     }
 
