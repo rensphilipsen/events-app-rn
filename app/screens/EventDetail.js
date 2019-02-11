@@ -1,11 +1,8 @@
 import React, { PureComponent } from 'react';
-import { addMediaToEvent, getAllEvents } from '../actions/events';
-import FeatureImagePage from '../components/FeatureImagePage/FeatureImagePage';
+import { addMediaToEvent, getAllEvents, setSelectedEvent } from '../actions/events';
 import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import ListItem from '../components/ListItem/ListItem';
 import theme, { COLOR } from '../styles/theme';
-import connect from 'react-redux/es/connect/connect';
-import ListItemText from '../components/ListItemText/ListItemText';
 import { getUrl } from '../utils/Helpers';
 import FastImage from 'react-native-fast-image';
 import ImageViewer from 'react-native-image-zoom-viewer';
@@ -13,6 +10,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import call from 'react-native-phone-call';
 import ImagePicker from 'react-native-image-picker';
 import PeopleAttending from '../components/PeopleAttending/PeopleAttending';
+import FeatureImagePage from '../components/FeatureImagePage/FeatureImagePage';
+import { connect } from 'react-redux';
+import ListItemText from '../components/ListItemText/ListItemText';
 
 class EventDetail extends PureComponent {
 
@@ -85,6 +85,9 @@ class EventDetail extends PureComponent {
      */
     componentDidMount() {
         this.props.getAllEvents();
+
+        if (this.event)
+            this.props.setSelectedEvent(this.event)
     }
 
     /**
@@ -96,6 +99,9 @@ class EventDetail extends PureComponent {
         if (!this.props.eventsLoading)
             if (this.props.eventsErrored)
                 this.navigate('Intro');
+
+        if (this.event)
+            this.props.setSelectedEvent(this.event)
     }
 
     /**
@@ -177,10 +183,11 @@ class EventDetail extends PureComponent {
         return (
             <TouchableOpacity key={item.id} onPress={() => this.toggleGallery()}>
                 <FastImage style={theme.eventDetailImage} source={{
-                    uri: getUrl(item.path),
+                    uri: getUrl(item.thumb_path),
                     priority: FastImage.priority.normal
                 }}/>
-            </TouchableOpacity>);
+            </TouchableOpacity>
+        );
     }
 
     /**
@@ -198,16 +205,20 @@ class EventDetail extends PureComponent {
      */
     renderGalleryViewer(medias) {
         const imageUrls = medias.map((item) => {
-            return {url: getUrl(item.path)}
+            return {url: getUrl(item.path), thumb_url: getUrl(item.thumb_path)}
         });
 
         return (
             <Modal visible={this.state.showGalleryViewer} transparent={false}>
-                <ImageViewer imageUrls={imageUrls} renderHeader={() => (
-                    <TouchableOpacity onPress={() => this.toggleGallery()} style={theme.galleryCloseButtonWrapper}>
-                        <Icon size={24} name={'close'} color={'white'}/>
-                    </TouchableOpacity>
-                )}/>
+                <ImageViewer
+                    imageUrls={imageUrls}
+                    renderImage={(props) =>
+                        console.log(props)}
+                    renderHeader={() => (
+                        <TouchableOpacity onPress={() => this.toggleGallery()} style={theme.galleryCloseButtonWrapper}>
+                            <Icon size={24} name={'close'} color={'white'}/>
+                        </TouchableOpacity>
+                    )}/>
             </Modal>);
     }
 
@@ -291,6 +302,7 @@ class EventDetail extends PureComponent {
         this.navigate = navigation.navigate;
         this.event = navigation.state.params ? navigation.state.params['event'] : this.props.event;
 
+        // Check if event is set
         if (this.event)
             return (
                 <FeatureImagePage event={this.event} eventsLoading={this.props.eventsLoading}>
@@ -327,7 +339,8 @@ const mapStateToProps = state => {
  */
 const mapDispatchToProps = {
     getAllEvents,
-    addMediaToEvent
+    addMediaToEvent,
+    setSelectedEvent,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventDetail)

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './styles';
 
-const HeaderText = (props) => {
+const HeaderText = () => {
     return (
         <View>
             <Text style={[styles.text, {fontSize: 40}]}>

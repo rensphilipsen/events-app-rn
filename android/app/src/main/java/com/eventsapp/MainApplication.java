@@ -13,10 +13,12 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
 import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
-import io.invertase.firebase.auth.RNFirebaseAuthPackage
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 
 import java.util.Arrays;
 import java.util.List;

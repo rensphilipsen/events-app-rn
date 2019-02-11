@@ -27,3 +27,17 @@ export function getDate(event) {
     else return '';
 }
 
+/**
+ * Get the feature image for event
+ *
+ * @returns {{uri: *}}
+ */
+export function getFeatureImage(event, thumb = false) {
+    const medias = event['medias'].data;
+
+    if (medias.length >= 1)
+        return {uri: getUrl(thumb ? medias[0].thumb_path : medias[0].path)};
+    else
+        return require('../../assets/placeholder.png');
+}
+

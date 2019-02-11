@@ -2,21 +2,21 @@ import React from 'react';
 import { TextInput } from 'react-native';
 import styles from './styles';
 
-const InputText = (props) => {
+const InputText = ({value, onChange, color, placeholder, editable, secureTextEntry, style, borderColor}) => {
     return (
         <TextInput
-            value={props.value}
-            onChangeText={props.onChange}
-            selectionColor={props.color}
-            placeholder={props.placeholder}
-            editable={props.editable}
-            secureTextEntry={props.secureTextEntry}
+            value={value}
+            onChangeText={onChange}
+            selectionColor={color}
+            placeholder={placeholder}
+            editable={editable}
+            secureTextEntry={secureTextEntry}
             style={[
-                props.style,
+                style,
                 styles.input,
                 {
-                    color: props.color,
-                    borderColor: props.borderColor
+                    color: color,
+                    borderColor: borderColor
                 }
             ]}>
         </TextInput>

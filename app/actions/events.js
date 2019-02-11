@@ -29,6 +29,13 @@ export function eventsMediaUploadSuccess(event) {
     };
 }
 
+export function eventSelectedSuccess(event) {
+    return {
+        type: 'EVENTS_SELECTED_SUCCESS',
+        event
+    };
+}
+
 // ACTION CREATORS
 export function getAllEvents() {
     return (dispatch) => {
@@ -56,7 +63,11 @@ export function addMediaToEvent(eventId, media) {
 
         return client.post('/events/' + eventId + '/medias', formData)
             .then((data) => dispatch(eventsMediaUploadSuccess(data.data.data)))
-            .catch((error) => dispatch(eventsHasErrored(true)))
+            .catch(() => dispatch(eventsHasErrored(true)))
             .then(() => dispatch(eventsIsLoading(false)));
     }
+}
+
+export function setSelectedEvent(event) {
+    return (dispatch) => dispatch(eventSelectedSuccess(event));
 }

@@ -3,13 +3,15 @@ import firebase from 'react-native-firebase';
 class Fire {
 
     email;
+    channel;
 
-    constructor(email) {
+    constructor(email, channel) {
         this.email = email;
+        this.channel = channel;
     }
 
     get ref() {
-        return firebase.database().ref('messages');
+        return firebase.database().ref(this.channel).child('messages');
     }
 
     parse = snapshot => {

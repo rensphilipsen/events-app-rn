@@ -1,47 +1,37 @@
-import React, { PureComponent } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import ListItemText from '../ListItemText/ListItemText';
-import { getDate, getUrl } from '../../utils/Helpers';
+import { getDate, getFeatureImage } from '../../utils/Helpers';
+import ProgressiveImage from '../ProgressiveImage/ProgressiveImage';
 
-class Row extends PureComponent {
+const Row = ({item, navigation}) => {
+    const {push} = navigation;
 
-    event;
+    return (
+        <TouchableOpacity
+            style={styles.row}
+            onPress={() => push('EventDetail', {event: item})}>
+            <View>
 
-    getFeatureImage() {
-        const medias = this.event['medias'].data;
-
-        return medias.length >= 1 ?
-            {uri: getUrl(medias[0].path)} :
-            require('../../../assets/placeholder.png')
-    }
-
-    render() {
-        const {push} = this.props.navigation;
-        this.event = this.props.item;
-
-
-        return (
-            <TouchableOpacity style={styles.row} onPress={() => push('EventDetail', {event: this.event})}>
-                <View>
-                    <View style={[styles.image, styles.imageWrapper]}>
-                        <Image
-                            ImageResizeMode={'cover'}
-                            style={styles.image}
-                            source={this.getFeatureImage()}
-                        />
-                    </View>
-                    <ListItemText>
-                        {this.props.item.title}&nbsp;
-                        <Text style={styles.smallText}>
-                            {getDate(this.event)}
-                        </Text>
-                    </ListItemText>
+                <View style={[styles.image, styles.imageWrapper]}>
+                    <ProgressiveImage
+                        ImageResizeMode={'cover'}
+                        style={styles.image}
+                        thumbnailSource={getFeatureImage(item, true)}
+                        source={getFeatureImage(item)}
+                    />
                 </View>
-            </TouchableOpacity>
-        );
-    }
 
-}
+                <ListItemText>
+                    {item.title}&nbsp;
+                    <Text style={styles.smallText}>
+                        {getDate(item)}
+                    </Text>
+                </ListItemText>
+            </View>
+        </TouchableOpacity>
+    );
+};
 
 export default Row

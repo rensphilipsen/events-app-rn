@@ -4,25 +4,13 @@ import styles, { MAX_HEIGHT, MIN_HEIGHT } from './styles';
 import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
 import * as Animatable from 'react-native-animatable';
 import { COLOR } from '../../styles/theme';
-import { getDate, getUrl } from '../../utils/Helpers';
+import { getDate, getFeatureImage } from '../../utils/Helpers';
 import Loader from '../Loader/Loader';
+import ProgressiveImage from '../ProgressiveImage/ProgressiveImage';
 
 class FeatureImagePage extends PureComponent {
 
     event;
-
-    /**
-     * Get the appropiate feature image
-     *
-     * @returns {{uri: *}}
-     */
-    getFeatureImage() {
-        const medias = this.event['medias'].data;
-
-        return medias.length >= 1 ?
-            {uri: getUrl(medias[0].path)} :
-            require('../../../assets/placeholder.png')
-    }
 
     /**
      * Render the appropiate badge
@@ -45,6 +33,18 @@ class FeatureImagePage extends PureComponent {
             </View>
         );
     }
+
+    /**
+     * Renders the header
+     *
+     * @returns {*}
+     */
+    renderHeader = () => {
+        return <ProgressiveImage
+            thumbnailSource={getFeatureImage(this.event, true)}
+            source={getFeatureImage(this.event)}
+            style={styles.image}/>
+    };
 
     /**
      * Renders the fixed foreground (this should be the header when scrolling down)
@@ -118,7 +118,7 @@ class FeatureImagePage extends PureComponent {
                     maxOverlayOpacity={0.6}
                     minOverlayOpacity={0.3}
                     fadeOutForeground
-                    headerImage={this.getFeatureImage()}
+                    renderHeader={this.renderHeader}
                     renderFixedForeground={this.renderFixedForeground}
                     renderForeground={this.renderForeground}>
 

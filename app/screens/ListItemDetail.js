@@ -6,6 +6,11 @@ import { FONT } from '../styles/theme';
 
 class ListItemDetail extends PureComponent {
 
+    /**
+     * Component specific navigationOptions
+     *
+     * @type {{header: null}}
+     */
     static navigationOptions = ({navigation}) => {
         return {
             title: navigation.getParam('title'),

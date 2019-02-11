@@ -1,4 +1,3 @@
-// @flow
 import React, { PureComponent } from 'react';
 import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 import Fire from '../utils/Fire';
@@ -17,10 +16,27 @@ class Chat extends PureComponent {
     };
 
     /**
+     * Fetch user from redux store
+     *
+     * @returns {{name: *, _id: string | string}}
+     */
+    get user() {
+        return {
+            name: this.props.user.name,
+            _id: this.props.user.email,
+        };
+    }
+
+    get channelName() {
+        const event = this.props.eventsSelected;
+        return event.type + '_' + event.id;
+    }
+
+    /**
      * Component did mount
      */
     componentDidMount() {
-        new Fire(this.props.user.email).on(message =>
+        new Fire(this.props.user.email, this.channelName).on(message =>
             this.setState(previousState => ({
                 messages: GiftedChat.append(previousState.messages, message),
             }))
@@ -31,19 +47,7 @@ class Chat extends PureComponent {
      * Component should unmount
      */
     componentWillUnmount() {
-        new Fire(this.props.user.email).off();
-    }
-
-    /**
-     * Fetch user from redux store
-     *
-     * @returns {{name: *, _id: string | string}}
-     */
-    get user() {
-        return {
-            name: this.props.user.name,
-            _id: this.props.user.email,
-        };
+        new Fire(this.props.user.email, this.channelName).off();
     }
 
     renderBubble = (props) => {
@@ -85,7 +89,8 @@ class Chat extends PureComponent {
  */
 const mapStateToProps = state => {
     return {
-        user: state.users
+        user: state.users,
+        eventsSelected: state.eventsSelected
     };
 };
 

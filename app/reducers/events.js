@@ -39,3 +39,13 @@ export function events(state = [], action) {
             return state;
     }
 }
+
+export function eventsSelected(state = null, action) {
+    switch (action.type) {
+        case 'EVENTS_SELECTED_SUCCESS':
+            return action.event;
+
+        default:
+            return state;
+    }
+}
