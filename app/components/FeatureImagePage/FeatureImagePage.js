@@ -122,7 +122,6 @@ class FeatureImagePage extends PureComponent {
                     renderFixedForeground={this.renderFixedForeground}
                     renderForeground={this.renderForeground}>
 
-
                     {this.renderContent(this.props.children)}
 
                 </HeaderImageScrollView>

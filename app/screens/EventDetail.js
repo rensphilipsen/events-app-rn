@@ -13,6 +13,8 @@ import PeopleAttending from '../components/PeopleAttending/PeopleAttending';
 import FeatureImagePage from '../components/FeatureImagePage/FeatureImagePage';
 import { connect } from 'react-redux';
 import ListItemText from '../components/ListItemText/ListItemText';
+import styles from '../components/FeatureImagePage/styles';
+import ProgressiveImage from '../components/ProgressiveImage/ProgressiveImage';
 
 class EventDetail extends PureComponent {
 
@@ -205,15 +207,24 @@ class EventDetail extends PureComponent {
      */
     renderGalleryViewer(medias) {
         const imageUrls = medias.map((item) => {
-            return {url: getUrl(item.path), thumb_url: getUrl(item.thumb_path)}
+            return {
+                url: getUrl(item.path),
+                props: {
+                    thumb_url: getUrl(item.thumb_path)
+                }
+            }
         });
 
         return (
             <Modal visible={this.state.showGalleryViewer} transparent={false}>
                 <ImageViewer
                     imageUrls={imageUrls}
-                    renderImage={(props) =>
-                        console.log(props)}
+                    renderImage={(props) => (
+                        <ProgressiveImage
+                            thumbnailSource={props.thumb_url}
+                            source={props.source}
+                            style={styles.image}/>
+                    )}
                     renderHeader={() => (
                         <TouchableOpacity onPress={() => this.toggleGallery()} style={theme.galleryCloseButtonWrapper}>
                             <Icon size={24} name={'close'} color={'white'}/>
@@ -251,6 +262,7 @@ class EventDetail extends PureComponent {
         const fieldsToRender = [];
         const metas = this.event['metas'].data;
 
+        // Get all the meta fields
         metas.forEach((meta) => {
             // Check if meta is in default fields array and value is not empty..
             const field = this.defaultFields.find(field => field.value === meta.key && meta.value !== '');
@@ -259,6 +271,7 @@ class EventDetail extends PureComponent {
                 fieldsToRender.push(EventDetail.renderAdditionalField(field, meta));
         });
 
+        // Get all the other fields
         this.otherFields.forEach((fieldValue) => {
             const field = this.defaultFields.find(field => field.value === fieldValue && this.event.type === 'event');
 
@@ -271,8 +284,15 @@ class EventDetail extends PureComponent {
 
     static renderAdditionalField(field, meta) {
         return (
-            <ListItem icon={field.icon} key={field.value} onPress={field.onPress} disabled={field.disabled}>
-                <ListItemText numberOfLines={5}>{EventDetail.getAdditionalFieldValue(field, meta)}</ListItemText>
+            <ListItem icon={field.icon}
+                      key={field.value}
+                      onPress={field.onPress}
+                      disabled={field.disabled}>
+
+                <ListItemText numberOfLines={5}>
+                    {EventDetail.getAdditionalFieldValue(field, meta)}
+                </ListItemText>
+
             </ListItem>);
     }
 
@@ -306,10 +326,12 @@ class EventDetail extends PureComponent {
         if (this.event)
             return (
                 <FeatureImagePage event={this.event} eventsLoading={this.props.eventsLoading}>
+
                     {this.renderPeopleAttending()}
                     {this.renderEvents()}
                     {this.renderAdditionalFields()}
                     {this.renderGallery()}
+
                 </FeatureImagePage>
             );
         else
