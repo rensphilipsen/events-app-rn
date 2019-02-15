@@ -41,3 +41,15 @@ export function getFeatureImage(event, thumb = false) {
         return require('../../assets/placeholder.png');
 }
 
+/**
+ * Get a meta value by key regarding the specific event
+ *
+ * @param event
+ * @param key
+ * @returns {*}
+ */
+export function getMeta(event, key) {
+    const metas = event['metas'].data;
+    return metas.find((meta) => meta.key === key).value;
+}
+

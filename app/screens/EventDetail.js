@@ -3,7 +3,7 @@ import { addMediaToEvent, getAllEvents, setSelectedEvent } from '../actions/even
 import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import ListItem from '../components/ListItem/ListItem';
 import theme, { COLOR } from '../styles/theme';
-import { getUrl } from '../utils/Helpers';
+import { getMeta, getUrl } from '../utils/Helpers';
 import FastImage from 'react-native-fast-image';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -51,7 +51,7 @@ class EventDetail extends PureComponent {
             icon: 'phone',
             value: 'contact_phone',
             template: 'Telefonisch contact: {value}',
-            onPress: () => call({number: this.getMeta('contact_phone')})
+            onPress: () => call({number: getMeta(this.event, 'contact_phone')})
         },
         {
             icon: 'info',
@@ -63,6 +63,12 @@ class EventDetail extends PureComponent {
             value: 'ticket',
             template: 'Klik hier voor uw ticket',
             onPress: () => this.navigateDetail('ticket', 'Ticket')
+        },
+        {
+            icon: 'subject',
+            value: 'timetable',
+            template: 'Klik hier voor het programma',
+            onPress: () => this.navigateDetail('timetable', 'Programma')
         },
         {
             icon: 'account-balance-wallet',
@@ -113,22 +119,18 @@ class EventDetail extends PureComponent {
      * @param title
      */
     navigateDetail(meta, title) {
-        const isTicket = (meta === 'ticket');
-        const data = isTicket ? this.event.code : this.getMeta(meta);
-        this.navigate('ListItemDetail', {isTicket: isTicket, data: data, title: title})
+        this.navigate('ListItemDetail', {
+            event: this.event,
+            meta: meta,
+            title: title
+        })
     };
 
     /**
-     * Get a meta value by key regarding the specific event
+     * Render the people attending
      *
-     * @param key
      * @returns {*}
      */
-    getMeta(key) {
-        const metas = this.event['metas'].data;
-        return metas.find((meta) => meta.key === key).value;
-    }
-
     renderPeopleAttending() {
         return (
             <PeopleAttending
@@ -221,7 +223,7 @@ class EventDetail extends PureComponent {
                     imageUrls={imageUrls}
                     renderImage={(props) => (
                         <ProgressiveImage
-                            thumbnailSource={props.thumb_url}
+                            thumbnailSource={{uri: props.thumb_url}}
                             source={props.source}
                             style={styles.image}/>
                     )}
