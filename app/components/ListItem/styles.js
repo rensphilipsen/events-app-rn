@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLOR } from '../../styles/theme';
+import theme, { COLOR } from '../../styles/theme';
 
 export default StyleSheet.create({
     item: {
@@ -8,11 +8,8 @@ export default StyleSheet.create({
         margin: 5,
         padding: 15,
         backgroundColor: COLOR.WHITE,
-        shadowColor: COLOR.SHADOW,
-        shadowRadius: 5,
-        shadowOpacity: 0.1,
-        borderRadius: 5,
-        shadowOffset: {height: 5}
+        borderRadius: 15,
+        ...theme.shadow
     },
     icon: {
         marginTop: 15

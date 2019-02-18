@@ -13,7 +13,13 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;
 import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +42,10 @@ public class MainApplication extends Application implements ReactApplication {
             new SplashScreenReactPackage(),
             new VectorIconsPackage(),
             new ReactNativeConfigPackage(),
-            new RNFirebaseCrashlyticsPackage()
+            new RNFirebaseCrashlyticsPackage(),
+            new RNFirebaseAuthPackage(),
+            new RNFirebaseDatabasePackage(),
+            new FastImageViewPackage()
       );
     }
 
@@ -54,6 +63,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    Fabric.with(this, new Crashlytics());
     SoLoader.init(this, /* native exopackage */ false);
   }
 }

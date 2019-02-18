@@ -140,11 +140,13 @@ jobs:
     working_directory: ~/project
 
     docker:
-      - image: circleci/android:api-27-node8-alpha
+      - image: circleci/android:api-26-node8-alpha
 
     steps:
       - checkout:
           path: ~/project
+          post:
+            - cp -r android/licenses/. $ANDROID_HOME/licenses
       - attach_workspace:
           at: ~/project
 
@@ -154,13 +156,18 @@ jobs:
 
       - run:
           name: version patch
-          command: npm version patch
+          command: |
+            git config --global user.email circleci@circleci
+            git config --global user.name CircleCI
+            npm version patch
+
 
       - run:
           name: Build and Deploy
           command: |
             cd android
-            bundle exec fastlane beta_circleci
+            bundle install
+            bundle exec fastlane beta
 
   ios:
     macos:
@@ -196,7 +203,10 @@ jobs:
 
       - run:
           name: version patch
-          command: npm version patch
+          command: |
+            git config --global user.email circleci@circleci
+            git config --global user.name CircleCI
+            npm version patch
 
       - run:
           name: Create a main.jsbundle

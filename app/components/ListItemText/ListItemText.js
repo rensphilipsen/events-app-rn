@@ -2,10 +2,11 @@ import React from 'react';
 import { Text } from 'react-native';
 import styles from './styles';
 
-const ListItemText = (props) => {
+const ListItemText = ({style, numberOfLines, children}) => {
     return (
-        <Text style={[styles.itemText, props.style]} numberOfLines={props.numberOfLines}>
-            {props.children}
+        <Text style={[styles.itemText, style]}
+              numberOfLines={numberOfLines}>
+            {children}
         </Text>
     );
 };

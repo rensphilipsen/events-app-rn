@@ -11,16 +11,32 @@ target 'EventsApp' do
   pod 'Firebase/Core'
   pod 'Fabric', '~> 1.7.13'
   pod 'Crashlytics', '~> 3.10.7'
+  pod 'Firebase/Auth', '~> 5.15.0'
+  pod 'Firebase/Database', '~> 5.15.0'
 
   target 'EventsApp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
     pod 'react-native-fast-image', :path => '../node_modules/react-native-fast-image'
 
+    pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   end
 
   target 'EventsAppTests' do
     inherit! :search_paths
     # Pods for testing
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == "React"
+      target.remove_from_project
+    end
+
+    if target.name == "yoga"
+      target.remove_from_project
+    end
   end
 end

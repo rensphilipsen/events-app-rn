@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
-import { AsyncStorage, StatusBar, View } from 'react-native';
-import Button from '../components/Button/Button';
+import { StatusBar, View } from 'react-native';
 import HeaderText from '../components/HeaderText/HeaderText';
+import Button from '../components/Button/Button';
 import theme, { COLOR } from '../styles/theme';
+import connect from 'react-redux/es/connect/connect';
 import InputText from '../components/InputText/InputText';
-import { checkActivation } from '../actions/activations';
-import { connect } from 'react-redux';
+import { loginUser } from '../actions/users';
 import Loader from '../components/Loader/Loader';
 
 class Login extends PureComponent {
@@ -18,23 +18,9 @@ class Login extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            code: '',
             email: '',
             password: '',
-            firstTime: false
         };
-    }
-
-    /**
-     * When component is  mounted
-     */
-    componentDidMount() {
-        AsyncStorage.getItem('firstTime').then((firstTime) => {
-            if (!firstTime)
-                firstTime = true;
-
-            this.setState({firstTime: firstTime});
-        })
     }
 
     /**
@@ -43,13 +29,14 @@ class Login extends PureComponent {
      * @param prevProps
      */
     componentDidUpdate(prevProps) {
-        if (!this.props.activationLoading) {
 
-            if (this.props.activations['code'])
-                this.props.navigation.navigate('Register');
+        if (!this.props.userLoading) {
+
+            if (this.props.users['email'])
+                this.props.navigation.navigate('Home');
 
             // TODO: Do error handling
-            if (this.props.activations === false)
+            if (this.props.users === false)
                 console.log('Do error handling')
 
         }
@@ -59,7 +46,7 @@ class Login extends PureComponent {
      * Submit the form
      */
     submit = () => {
-        this.props.checkActivation(this.state.code);
+        this.props.loginUser(this.state.email, this.state.password);
     };
 
     /**
@@ -68,35 +55,36 @@ class Login extends PureComponent {
      * @returns {*}
      */
     render() {
-        const {navigate} = this.props.navigation;
-
         return (
             <View style={theme.introWrapper}>
-
-                <Loader visible={this.props.activationLoading}/>
-
                 <StatusBar barStyle="light-content"/>
+
+                <Loader visible={this.props.userLoading}/>
 
                 <HeaderText/>
 
                 <InputText
                     borderColor={COLOR.PRIMARY_DARKER}
                     color={COLOR.WHITE}
-                    placeholder={'Voer uw unieke code in...'}
-                    value={this.state.code}
-                    onChange={(code) => this.setState({code})}
+                    value={this.state.email}
+                    placeholder={'Vul uw email in...'}
+                    onChange={(email) => this.setState({email})}
                 />
 
-                <Button text={'Verder'}
+                <InputText
+                    borderColor={COLOR.PRIMARY_DARKER}
+                    color={COLOR.WHITE}
+                    value={this.state.password}
+                    placeholder={'Vul uw wachtwoord in...'}
+                    secureTextEntry={true}
+                    onChange={(password) => this.setState({password})}
+                />
+
+
+                <Button text={'Inloggen'}
                         color={COLOR.WHITE}
                         backgroundColor={COLOR.SECONDARY}
                         onPress={this.submit}/>
-
-                <Button text={'Code scannen'}
-                        color={COLOR.WHITE}
-                        backgroundColor={COLOR.PRIMARY_DARKER}
-                        onPress={() => navigate('Scan')}/>
-
             </View>
         )
     }
@@ -104,24 +92,23 @@ class Login extends PureComponent {
 
 /**
  * All the VALUES from the Redux store that should be available within the props of this component
- *
  * @param state
- * @returns {{activationLoading, activations: *}}
+ * @returns {{userLoading, activations: *, users: *}}
  */
 const mapStateToProps = state => {
     return {
-        activationLoading: state.activationLoading,
-        activations: state.activations
+        userLoading: state.userLoading,
+        users: state.users
     };
 };
 
 /**
  * All the METHODS from the Redux store that should be available within the props of this component
  *
- * @type {{checkActivation: checkActivation}}
+ * @type {{createUser: createUser}}
  */
 const mapDispatchToProps = {
-    checkActivation
+    loginUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -11,61 +11,65 @@
 
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
-fastlane_version "2.67.0"
+fastlane_version '2.67.0'
 
 default_platform :ios
 
 platform :ios do
   before_all do
     setup_circle_ci
+    ENV['SLACK_URL'] = 'https://hooks.slack.com/services/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'
   end
 
-  desc "Runs all the tests"
-  lane :test do
-    scan
-  end
-
-  desc "Submit a new Beta Build to Apple TestFlight"
-  desc "This will also make sure the profile is up to date"
+  desc 'Submit a new Beta Build to Crashlytics Beta'
   lane :beta do
-    # match(type: "appstore") # more information: https://codesigning.guide
-    gym # Build your app - more options available
-    pilot
 
-    # sh "your_script.sh"
-    # You can also use other beta testing services here (run `fastlane actions`)
+      # Ensure that your git status is not dirty
+      ensure_git_status_clean
+
+      # Increment the build number (not the version number)
+      # Providing the xcodeproj is optional
+      increment_build_number(xcodeproj: 'EventsApp.xcodeproj')
+
+      # Commit the version bump
+      commit_version_bump(xcodeproj: 'EventsApp.xcodeproj')
+
+      # Add a git tag for this build. This will automatically
+      # use an appropriate git tag name
+      add_git_tag
+
+      # Push the new commit and tag back to your git remote
+      push_to_git_remote
+
+      #Build the app and upload to Crashlytics
+      build_app(scheme: 'EventsApp',
+                workspace: 'EventsApp.xcworkspace')
+      crashlytics(
+              api_token: '53085936eb7a40b48cc2af930e235f318e108e95',
+              build_secret: '27202525f0919325def0aa0572b8f38d2c05cb278d71a3cd82f59a884075981a')
   end
 
-  desc "Deploy a new version to the App Store"
+  desc 'Deploy a new version to the App Store'
   lane :release do
-    # match(type: "appstore")
+    # match(type: 'appstore')
     # snapshot
     gym # Build your app - more options available
     deliver(force: true)
     # frameit
   end
 
-  # You can define as many lanes as you want
-
   after_all do |lane|
     # This block is called, only if the executed lane was successful
 
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+    slack(
+      message: 'Successfully deployed new App Update for iOS.'
+    )
   end
 
   error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+    slack(
+      message: exception.message,
+      success: false
+    )
   end
 end
-
-
-# More information about multiple platforms in fastlane: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
-# All available actions: https://docs.fastlane.tools/actions
-
-# fastlane reports which actions are used. No personal data is recorded.
-# Learn more at https://docs.fastlane.tools/#metrics

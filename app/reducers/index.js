@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
-import { eventRoomId, events, eventsHasErrored, eventsIsLoading } from './events';
+import { events, eventsHasErrored, eventsIsLoading, eventsSelected } from './events';
 import { activationLoading, activations } from './activations';
 import { userLoading, users } from './users';
 
 export default combineReducers({
     events,
-    eventRoomId,
     eventsIsLoading,
     eventsHasErrored,
+    eventsSelected,
     activations,
     activationLoading,
     users,

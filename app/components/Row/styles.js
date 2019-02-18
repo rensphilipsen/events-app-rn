@@ -1,18 +1,16 @@
 import { StyleSheet } from 'react-native';
-import { COLOR } from '../../styles/theme';
+import theme, { COLOR } from '../../styles/theme';
 
 export default StyleSheet.create({
     row: {
-        borderRadius: 10,
+        borderRadius: 15,
         margin: 10,
         backgroundColor: COLOR.WHITE,
-        shadowColor: COLOR.SHADOW,
-        shadowRadius: 5,
-        shadowOpacity: 0.2,
+        ...theme.shadow
     },
     imageWrapper: {
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
     },
     image: {
         overflow: 'hidden',

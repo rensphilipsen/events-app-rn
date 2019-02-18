@@ -1,79 +1,27 @@
 {
   "project_info": {
-    "project_number": "320611000807",
-    "firebase_url": "https://eventapp-154011.firebaseio.com",
-    "project_id": "eventapp-154011",
-    "storage_bucket": "eventapp-154011.appspot.com"
+    "project_number": "984831282370",
+    "firebase_url": "https://events-app-72ee2.firebaseio.com",
+    "project_id": "events-app-72ee2",
+    "storage_bucket": "events-app-72ee2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:320611000807:android:785b7687c7099bae",
-        "android_client_info": {
-          "package_name": "com.eventsapp"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "320611000807-0pprbav3edpiebke2p4ta6501ffnm5cv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.eventsapp",
-            "certificate_hash": "11548da5d37a23046a54ba7d7451e01be20ed331"
-          }
-        },
-        {
-          "client_id": "320611000807-hoo9lpnl3fuj30cpnnuk5acikoto0j31.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA6LUM0Va22J0jayxZhazIbrhguzzgVaNk"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "320611000807-hoo9lpnl3fuj30cpnnuk5acikoto0j31.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:320611000807:android:db04791c25543725",
+        "mobilesdk_app_id": "1:984831282370:android:db04791c25543725",
         "android_client_info": {
           "package_name": "nl.socialbrothers.eventsapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "320611000807-09b8t35i7jd9g5397jf66l9sjqd3rfuv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "nl.socialbrothers.eventsapp",
-            "certificate_hash": "11548da5d37a23046a54ba7d7451e01be20ed331"
-          }
-        },
-        {
-          "client_id": "320611000807-hoo9lpnl3fuj30cpnnuk5acikoto0j31.apps.googleusercontent.com",
+          "client_id": "984831282370-j22l3c779qlbb6ic942csu41vp1laet6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA6LUM0Va22J0jayxZhazIbrhguzzgVaNk"
+          "current_key": "AIzaSyBzUuKqePlw_mbH6rs1uhL4J_F4bo-gtOg"
         }
       ],
       "services": {
@@ -81,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "320611000807-hoo9lpnl3fuj30cpnnuk5acikoto0j31.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

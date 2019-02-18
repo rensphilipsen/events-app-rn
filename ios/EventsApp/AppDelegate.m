@@ -11,6 +11,8 @@
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
 #import <Firebase.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
@@ -19,6 +21,8 @@
   NSURL *jsCodeLocation;
   
   [FIRApp configure];
+
+  [Fabric with:@[[Crashlytics class]]];
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 

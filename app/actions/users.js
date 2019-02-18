@@ -2,6 +2,7 @@ import { client } from '../index';
 import { getAllEvents } from './events';
 import { AsyncStorage } from 'react-native';
 
+// ACTIONS
 export function userLoaded(user) {
     return {
         type: 'USERS_LOADED',
@@ -16,6 +17,7 @@ export function userLoading(bool) {
     };
 }
 
+// ACTION CREATORS
 export function createUser(user) {
     return dispatch => {
         dispatch(userLoading(true));
@@ -42,6 +44,27 @@ export function createUser(user) {
             dispatch(userLoading(false));
             return dispatch(userLoaded(false))
         })
+    }
+}
+
+export function loginUser(email, password) {
+    return dispatch => {
+        dispatch(userLoading(true));
+
+        client.post('/authentication/login', {
+            email: email,
+            password: password
+        }).then((data) => {
+            return AsyncStorage.setItem('access_token', data.data.access_token).then(() => {
+                dispatch(loadUser());
+                return dispatch(getAllEvents()).then(() => {
+                    dispatch(userLoading(false));
+                });
+            })
+        }, () => {
+            dispatch(userLoading(false));
+            return dispatch(userLoaded(false))
+        });
     }
 }
 

@@ -1,5 +1,6 @@
 import { client } from '../index';
 
+// ACTIONS
 export function eventsHasErrored(bool) {
     return {
         type: 'EVENTS_HAS_ERRORED',
@@ -21,13 +22,21 @@ export function eventsFetchSuccess(event) {
     };
 }
 
-export function eventRoomIdSuccess(event) {
+export function eventsMediaUploadSuccess(event) {
     return {
-        type: 'EVENT_ROOM_ID_SUCCESS',
+        type: 'EVENTS_MEDIA_UPLOAD_SUCCESS',
         event
     };
 }
 
+export function eventSelectedSuccess(event) {
+    return {
+        type: 'EVENTS_SELECTED_SUCCESS',
+        event
+    };
+}
+
+// ACTION CREATORS
 export function getAllEvents() {
     return (dispatch) => {
         dispatch(eventsIsLoading(true));
@@ -39,8 +48,26 @@ export function getAllEvents() {
     }
 }
 
-export function setEventRoomId(roomId) {
+export function addMediaToEvent(eventId, media) {
     return (dispatch) => {
-        return dispatch(eventRoomIdSuccess(roomId));
+        dispatch(eventsIsLoading(true));
+
+        // Create a form data object which will be send to the API
+        const formData = new FormData();
+        formData.append('media', {
+            uri: media.uri,
+            type: media.type ? media.type : 'image/jpeg',
+            name: media.fileName ? media.fileName : 'test.jpg',
+            data: media.data
+        });
+
+        return client.post('/events/' + eventId + '/medias', formData)
+            .then((data) => dispatch(eventsMediaUploadSuccess(data.data.data)))
+            .catch(() => dispatch(eventsHasErrored(true)))
+            .then(() => dispatch(eventsIsLoading(false)));
     }
+}
+
+export function setSelectedEvent(event) {
+    return (dispatch) => dispatch(eventSelectedSuccess(event));
 }

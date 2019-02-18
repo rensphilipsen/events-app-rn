@@ -1,130 +1,127 @@
 import React, { PureComponent } from 'react';
-import { StatusBar, View } from 'react-native';
-import HeaderText from '../components/HeaderText/HeaderText';
+import { AsyncStorage, StatusBar, View } from 'react-native';
 import Button from '../components/Button/Button';
+import HeaderText from '../components/HeaderText/HeaderText';
 import theme, { COLOR } from '../styles/theme';
-import connect from 'react-redux/es/connect/connect';
 import InputText from '../components/InputText/InputText';
-import { createUser } from '../actions/users';
+import { checkActivation } from '../actions/activations';
+import { connect } from 'react-redux';
 import Loader from '../components/Loader/Loader';
 
 class Register extends PureComponent {
 
-	/**
-	 * Constructor
-	 *
-	 * @param props
-	 */
-	constructor(props) {
-		super(props);
-		this.state = {
-			email: '',
-			name: '',
-			password: '',
-		};
-	}
+    /**
+     * Constructor
+     *
+     * @param props
+     */
+    constructor(props) {
+        super(props);
+        this.state = {
+            code: '',
+            email: '',
+            password: '',
+            firstTime: false
+        };
+    }
 
-	/**
-	 * When component is  mounted
-	 */
-	componentDidMount() {
-		this.setState({email: this.props.activations['email']});
-	}
+    /**
+     * When component is  mounted
+     */
+    componentDidMount() {
+        AsyncStorage.getItem('firstTime').then((firstTime) => {
+            if (!firstTime)
+                firstTime = true;
 
-	/**
-	 * When component has updated
-	 *
-	 * @param prevProps
-	 */
-	componentDidUpdate(prevProps) {
+            this.setState({firstTime: firstTime});
+        })
+    }
 
-		if (!this.props.userLoading) {
+    /**
+     * When component has updated
+     *
+     * @param prevProps
+     */
+    componentDidUpdate(prevProps) {
+        if (!this.props.activationLoading) {
 
-			if (this.props.users['email'])
-				this.props.navigation.navigate('Home');
+            if (this.props.activations['code'])
+                this.props.navigation.navigate('RegisterUser');
 
-			// TODO: Do error handling
-			if (this.props.users === false)
-				console.log('Do error handling')
+            // TODO: Do error handling
+            if (this.props.activations === false)
+                console.log('Do error handling')
 
-		}
-	}
+        }
+    }
 
-	/**
-	 * Submit the form
-	 */
-	submit = () => {
-		this.props.createUser(this.state);
-	};
+    /**
+     * Submit the form
+     */
+    submit = () => {
+        this.props.checkActivation(this.state.code);
+    };
 
-	/**
-	 * The render method.
-	 *
-	 * @returns {*}
-	 */
-	render() {
-		return (
-			<View style={theme.introWrapper}>
-				<StatusBar barStyle="light-content"/>
+    /**
+     * The render method.
+     *
+     * @returns {*}
+     */
+    render() {
+        const {navigate} = this.props.navigation;
 
-				<Loader visible={this.props.userLoading}/>
+        return (
+            <View style={theme.introWrapper}>
 
-				<HeaderText/>
+                <Loader visible={this.props.activationLoading}/>
 
-				<InputText
-					borderColor={COLOR.PRIMARY_DARKER}
-					color={COLOR.WHITE}
-					value={this.props.activations['email']}
-					editable={false}
-				/>
+                <StatusBar barStyle="light-content"/>
 
-				<InputText
-					borderColor={COLOR.PRIMARY_DARKER}
-					color={COLOR.WHITE}
-					value={this.state.name}
-					placeholder={'Vul uw naam in...'}
-					onChange={(name) => this.setState({name})}
-				/>
+                <HeaderText/>
 
-				<InputText
-					borderColor={COLOR.PRIMARY_DARKER}
-					color={COLOR.WHITE}
-					value={this.state.password}
-					placeholder={'Vul uw wachtwoord in...'}
-					secureTextEntry={true}
-					onChange={(password) => this.setState({password})}
-				/>
+                <InputText
+                    borderColor={COLOR.PRIMARY_DARKER}
+                    color={COLOR.WHITE}
+                    placeholder={'Voer uw unieke code in...'}
+                    value={this.state.code}
+                    onChange={(code) => this.setState({code})}
+                />
 
+                <Button text={'Verder'}
+                        color={COLOR.WHITE}
+                        backgroundColor={COLOR.SECONDARY}
+                        onPress={this.submit}/>
 
-				<Button text={'Voltooien'}
-						color={COLOR.WHITE}
-						backgroundColor={COLOR.SECONDARY}
-						onPress={this.submit}/>
-			</View>
-		)
-	}
+                <Button text={'Code scannen'}
+                        color={COLOR.WHITE}
+                        backgroundColor={COLOR.PRIMARY_DARKER}
+                        onPress={() => navigate('RegisterScan')}/>
+
+            </View>
+        )
+    }
 }
 
 /**
  * All the VALUES from the Redux store that should be available within the props of this component
+ *
  * @param state
- * @returns {{userLoading, activations: *, users: *}}
+ * @returns {{activationLoading, activations: *}}
  */
 const mapStateToProps = state => {
-	return {
-		activations: state.activations,
-		userLoading: state.userLoading,
-		users: state.users
-	};
+    return {
+        activationLoading: state.activationLoading,
+        activations: state.activations
+    };
 };
 
 /**
  * All the METHODS from the Redux store that should be available within the props of this component
  *
- * @type {{createUser: createUser}}
+ * @type {{checkActivation: checkActivation}}
  */
 const mapDispatchToProps = {
-	createUser,
+    checkActivation
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

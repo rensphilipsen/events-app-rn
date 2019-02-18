@@ -4,15 +4,21 @@ import styles from './styles';
 import { Icon } from 'react-native-elements'
 import { COLOR } from '../../styles/theme';
 
-const ListItem = (props) => {
+const ListItem = ({onPress, disabled, contentStyle, children, icon}) => {
     return (
         <TouchableOpacity style={styles.item}
-                          onPress={props.onPress}
-                          disabled={!!props.disabled}>
-            <Icon size={30} name={props.icon} style={styles.icon} color={COLOR.PRIMARY}/>
-            <View style={props.contentStyle}>
-                {props.children}
+                          onPress={onPress}
+                          disabled={!!disabled}>
+
+            <Icon size={30}
+                  name={icon}
+                  style={styles.icon}
+                  color={COLOR.PRIMARY}/>
+
+            <View style={contentStyle}>
+                {children}
             </View>
+
         </TouchableOpacity>
     );
 };

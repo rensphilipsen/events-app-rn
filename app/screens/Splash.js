@@ -16,6 +16,7 @@ class Splash extends PureComponent {
     constructor(props) {
         super(props);
         OneSignal.init(Config.ONESIGNAL_APP_ID);
+
         this.bootstrapAsync();
     }
 
@@ -37,7 +38,7 @@ class Splash extends PureComponent {
         if (token)
             this.props.loadUser();
 
-        this.props.navigation.navigate(token ? 'Main' : 'Register');
+        this.props.navigation.navigate(token ? 'Main' : 'Intro');
     };
 
     /**
