@@ -13,6 +13,7 @@ import ListItemDetail from '../screens/ListItemDetail';
 import Timeline from '../screens/Timeline';
 import Intro from '../screens/Intro';
 import Login from '../screens/Login';
+import Profile from '../screens/Profile';
 
 /**
  * Main navigator which contains all event routes
@@ -77,6 +78,14 @@ const rootNavigator = createBottomTabNavigator(
             navigationOptions: {
                 tabBarIcon: ({tintColor}) => (
                     <Icon name="chat" color={tintColor}/>
+                )
+            }
+        },
+        Profile: {
+            screen: Profile,
+            navigationOptions: {
+                tabBarIcon: ({tintColor}) => (
+                    <Icon name="person" color={tintColor}/>
                 )
             }
         }
